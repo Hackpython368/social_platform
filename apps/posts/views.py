@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from .serializer import PostSerializer,CommentSerializer
+from .serializer import PostSerializer,CommentSerializer,FeedSerializer
 from rest_framework.response import Response
 from .models import Post,Like
+from apps.connections.models import Follow
 
 # Create your views here.
 class PostView(APIView):
@@ -35,13 +36,16 @@ class LikeView(APIView):
         id = Post.objects.get(id=id)
 
         try:
-            Like.add_like(user,id)
+            created = Like.add_like(user,id)
         except:
             return Response({"detail":"Unable to create a post!"},status=400)
         
-
+        if created:
+            return Response({
+                "detail":"Create the entry in the database"
+            },status=200)
         return Response({
-            "detail":"create a database entry for your like"
+            "detail":"deleted entry form the database "
         },status=200)
 
 
@@ -71,3 +75,37 @@ class CommentView(APIView):
         return Response({
             "detail":"some error occurs !"
         },status=400)
+
+
+class FeedView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+
+        user = request.user
+
+        following_id = Follow.objects.all().filter(follower=user).values_list('following',flat=True)
+
+        if not following_id:
+            posts = Post.objects.order_by('-created_at')
+        else:
+            posts = Post.objects.filter(user__in=following_id).order_by('-created_at')
+
+
+        try :
+            serializer = FeedSerializer(posts,many=True)
+        except:
+            return Response({
+                "detail":"Can't able serialize your data"
+            })
+        
+        try:
+            return Response(
+                serializer.data
+                ,status=200)
+        except:
+            return Response({
+                'detial':"some error occurs"
+            },status=400)
+    

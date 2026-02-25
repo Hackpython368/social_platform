@@ -1,2 +1,20 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
 db.sqlite3
+media/
+staticfiles/
+
+# Virtual Environment
+venv/
+env/
+
+# Environment variables
+.env
 password.txt
+
+# VS Code
+.vscode/

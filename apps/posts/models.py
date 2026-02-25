@@ -51,7 +51,11 @@ class Like(models.Model):
 
     @classmethod
     def add_like(self, user, id):
-        return self.objects.get_or_create(user=user,post=id)
+        json , created = self.objects.get_or_create(user=user,post=id)
+        
+        if not created:
+            json.delete()
+        return created
     
 class Comment(models.Model):
 

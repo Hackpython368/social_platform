@@ -23,3 +23,14 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
     
+
+class FeedSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Post
+
+        fields = ['user','content','like_count','comment_count']
+
+
+    
