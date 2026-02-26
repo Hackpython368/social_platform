@@ -65,7 +65,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='static/profile_pic',blank=True)
     create_date = models.DateField(auto_now_add=True)
 
-    def __profile__(self):
+    def __str__(self):
         return f"{self.user.email}\'s Profile !"
     
 

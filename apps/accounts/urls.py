@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import RegisterView
+from .views import RegisterView,CustomTokenObtainPairView
 
 print("Hello From the account")
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name="register"),
+    path('',CustomTokenObtainPairView.as_view(),name="token_view"),
+    path('register/', RegisterView.as_view(), name="register")
 ]

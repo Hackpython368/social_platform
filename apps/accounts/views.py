@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer,CreateTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import User
 
 
@@ -12,8 +13,23 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            user = serializer.save()
+            return Response({
+                "success" : True,
+                "message" : "User registered successfully !",
+                "data" : {
+                    "id" : user.id,
+                    "email" : user.email,
+                    "username" : user.username
+                }
+            }, status=201)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({
+                "success" : False,
+                "message" : "Validation failed",
+                "error" : serializer.errors
+            }, status=400)
     
+class CustomTokenObtainPairView(TokenObtainPairView):
+    print("hello form custom token")
+    serializer_class = CreateTokenObtainPairSerializer

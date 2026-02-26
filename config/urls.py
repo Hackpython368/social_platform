@@ -27,7 +27,6 @@ urlpatterns = [
     path('api/accounts/con/',include('apps.connections.urls')),
     path('api/accounts/con/<int:id>/',include('apps.connections.urls')),
     path("api/accounts/user/",include('apps.posts.urls')),
-    path('api/token/',TokenObtainPairView.as_view(),name='token_obtain_pair'),
-    path('api/refresh/',TokenRefreshView.as_view(),name='token_refresh_view'),
+    path('api/token/',include('apps.accounts.urls'),name='token_obtain_pair'),
     path('admin/', admin.site.urls),
 ]
