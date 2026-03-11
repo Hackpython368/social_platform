@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZentroConnect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0F1B2D;
+      color: #F8FAFC;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar {
+      height: 70px;
+      background: #0B1220;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid #1E293B;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 20px;
+      color: #1E90FF;
+    }
+
+    .settings {
+      position: absolute;
+      right: 30px;
+      font-size: 20px;
+      color: #94A3B8;
+      cursor: pointer;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      background: #0B1220;
+      border-radius: 0px 16px 16px 0px;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s ease;
+      justify-content: center;
+    }
+
+    .sidebar:hover {
+      display: flex;
+      height: 650px;
+      width: 200px;
+      border-radius: 0px 16px 16px 0px;
+
+    }
+
+    .sidebar a {
+      width: 100%;
+    }
+
+    .side-item {
+      width: 100%;
+      padding: 20px;
+      cursor: pointer;
+      color: #94A3B8;
+      transition: 0.2s;
+    }
+
+    .side-item:hover {
+      background: #1E293B;
+      color: #1E90FF;
+    }
+
+    .side-text {
+      display: none;
+      opacity: 0;
+      transition: 0.9s;
+      white-space: nowrap;
+    }
+
+    .sidebar:hover .side-text {
+      display: inline-block;
+      opacity: 1;
+    }
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    /* ================= MAIN CONTAINER ================= */
+    .main {
+      margin-top: 90px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .feed-container {
+      width: 650px;
+    }
+
+    /* ================= POST CARD ================= */
+    .post {
+      background: #1E293B;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #334155;
+      margin-right: 12px;
+      background-size: cover;
+    }
+
+    #profile-pic {
+      height: 100%;
+      width: 100%;
+      border-radius: 50px;
+    }
+
+    .user-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .user-info span {
+      font-size: 12px;
+      color: #94A3B8;
+    }
+
+    .post-content {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
+
+    .post img {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 25px;
+      padding: 10px 0;
+      border-top: 1px solid #334155;
+      border-bottom: 1px solid #334155;
+      margin-bottom: 12px;
+    }
+
+    .actions span {
+      cursor: pointer;
+      color: #94A3B8;
+      transition: 0.2s;
+    }
+
+    .actions span:hover {
+      color: #1E90FF;
+    }
+
+    .comment-preview {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+
+    .post-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.post-modal{
+    width:600px;
+    background:#1E293B;
+    border-radius:12px;
+    padding:20px;
+    display:flex;
+    gap:20px;
+}
+
+.post-left{
+    flex:1;
+}
+
+.post-left textarea{
+    width:100%;
+    height:200px;
+    background:#0F1B2D;
+    border:none;
+    color:white;
+    padding:10px;
+    border-radius:8px;
+}
+
+.post-right{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.post-right input{
+    margin-bottom:10px;
+}
+
+.post-submit{
+    margin-top:10px;
+    background:#1E90FF;
+    border:none;
+    padding:10px 15px;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">ZentroConnect</div>
+    <div class="settings">⚙</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <a href="/home">
+      <div class="side-item">🏠 <span class="side-text">Home</span></div>
+    </a>
+    <a href="/search">
+      <div class="side-item">🔍 <span class="side-text">Search</span></div>
+    </a>
+    <a href="#">
+      <div class="side-item" id="openPostModal">➕ <span class="side-text">Create</span></div>
+    </a>
+    <a href="/profile">
+      <div class="side-item">👤 <span class="side-text">Profile</span></div>
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="feed-container" id="feed">
+
+
+
+    </div>
+  </div>
+  <script>
+
+    const loadfeed = () => {
+      fetch('http://127.0.0.1:8000/api/accounts/user/feed/', {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("access")
+        }
+      }).then(res => res.json()).then(data => {
+        console.log(data);
+        if (data.code == "token_not_valid") {
+          console.log(localStorage.getItem('refresh'));
+          fetch("http://127.0.0.1:8000/api/token/refresh/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
+          }).then(res => res.json()).then(data => {
+            localStorage.setItem('access', data.data.access)
+            loadfeed();
+
+          })
+        } else {
+          document.getElementById("feed").innerHTML = ""
+          for (let i = 0; data.data.length > i; i++) {
+
+            document.getElementById("feed").innerHTML += `
+          <div class="post">
+            <div class="post-header">
+              <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']})"></div>
+              <div class="user-info">
+                <h4>${data['data'][i]['username']}</h4>
+                <span>12:30 pm · 2 Jan 2026</span>
+              </div>
+            </div>
+            
+            <div class="post-content">
+              ${data['data'][i]['content']}
+            </div>
+            ${data['data'][i]['post_img'] == null ? "" : `<img src="${data['data'][i]['post_img']}">`}
+            
+            
+            <div class="actions">
+              <span id="${data['data'][i]['id']}" class="like-btn"><i class="fa-solid fa-heart"></i>${data['data'][i]['like_count']}</span>
+              <span id="comment">💬 ${data['data'][i]['comment_count']} Comment</span>
+            </div>
+            
+            <div class="comment-preview">
+              <strong>User2:</strong> Amazing perspective 👏
+            </div>
+            
+          </div>`
+          }
+        }
+
+      })
+    }
+
+    loadfeed()
+
+    const resultcontainer = document.getElementById('feed')
+
+    resultcontainer.addEventListener('click', (event) => {
+      console.log("clicked")
+      console.log(event.target)
+      if (event.target.classList.contains('like-btn')) {
+        const likebtn = event.target
+        console.log("hi")
+
+        const likepost = () => {
+          console.log("post Liked")
+          fetch(`http://127.0.0.1:8000/api/accounts/user/${likebtn.id}/post/like/`, {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem("access")
+            }
+          }).then(res => res.json()).then(data => {
+            if (data.code == "token_not_valid") {
+              console.log(localStorage.getItem('refresh'));
+              fetch("http://127.0.0.1:8000/api/token/refresh/", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
+              }).then(res => res.json()).then(data => {
+                localStorage.setItem('access', data.data.access)
+                likepost()
+
+              })
+
+            } else {
+              loadfeed()
+            }
+          })
+        }
+        likepost()
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+    function createPostModal() {
+
+      const overlay = document.createElement("div");
+      overlay.className = "post-overlay";
+
+      const modal = document.createElement("div");
+      modal.className = "post-modal";
+
+      modal.innerHTML = `
+        <div class="post-left">
+            <h3>Create Post</h3>
+            <textarea placeholder="Write something..."></textarea>
+        </div>
+
+        <div class="post-right">
+            <input type="file" accept="image/*,video/*">
+            <button class="post-submit">Post</button>
+        </div>
+    `;
+
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      });
+
+    }
+
+    document.getElementById("openPostModal").addEventListener("click", createPostModal);
+
+
+  </script>
+</body>
+
+</html>

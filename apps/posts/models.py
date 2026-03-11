@@ -1,6 +1,6 @@
 from django.db import models
 from apps.accounts.models import User
-from django.conf import settings 
+from django.conf import settings
 
 # Create your models here.
 class Post(models.Model):
@@ -12,6 +12,8 @@ class Post(models.Model):
     )
 
     content = models.TextField()
+
+    post_img = models.ImageField(upload_to="posts/",null=True, blank=True)
 
 
     like_count = models.IntegerField(default=0)

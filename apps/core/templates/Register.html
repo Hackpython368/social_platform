@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZentroConnect - Desktop Login</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #081428 0%, #020c1f 100%);
+    }
+
+    /* MAIN CARD */
+    .login-card {
+      width: 900px;
+      height: 600px;
+      display: flex;
+      border-radius: 20px;
+      background: #0F1B2D;
+      border: 1px solid rgba(30, 144, 255, 0.3);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    /* LEFT IMAGE */
+    .left {
+      flex: 1;
+      padding: 30px;
+      position: relative;
+    }
+
+
+    .left .image-container {
+      border-radius: 20px;
+      background-image: url("/static/src/img/Connect.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 530px;
+      width: 100%;
+
+    }
+
+    /* RIGHT SECTION */
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 60px;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+
+    .brand-text {
+      font-size: 14px;
+      color: #1E90FF;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #F8FAFC;
+      margin-bottom: 25px;
+    }
+
+    /* INPUTS */
+    .input-group {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 30px;
+      border: none;
+      background: #D1D5DB;
+      color: #111827;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* BUTTON */
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #0F4C81, #1E90FF);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin: 10px 0px;
+    }
+
+    button:hover {
+      box-shadow: 0 10px 25px rgba(30, 144, 255, 0.4);
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #334155;
+    }
+
+
+    /* FOOTER */
+    .footer {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    .footer a {
+      color: #1E90FF;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-card">
+
+    <div class="left">
+      <div class="image-container"></div>
+    </div>
+
+    <div class="right">
+
+      <img src="/static/src/img/logon-removebg-preview.png" alt="Logo" class="logo">
+
+      <div class="title">Register</div>
+
+      <div class="input-group">
+        <input type="email" placeholder="Email" id="email">
+      </div>
+
+      <div class="input-group">
+        <input type="text" placeholder="Username" id="username">
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Create Password" id="password">
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Confirm Password" id="cpassword">
+      </div>
+
+      <button id="submit">SUBMIT</button>
+
+      <div class="divider"></div>
+
+      <div class="footer">
+        Have an account? <a href="/">Login</a>
+      </div>
+
+    </div>
+
+  </div>
+  <script>
+
+    let createuser = (jsondata) => {
+      fetch("http://127.0.0.1:8000/api/accounts/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
+          "Accept": "application/json"
+        },
+        body : JSON.stringify(jsondata)
+      }).then(res => res.json()).then(data => {
+        console.log(data)
+      })
+    }
+
+
+    let registerbtn = document.getElementById('submit')
+
+    registerbtn.addEventListener('click', () => {
+      if (document.getElementById('password').value == document.getElementById('cpassword').value) {
+
+        let jsondata = {
+          'email': document.getElementById('email').value,
+          'username': document.getElementById('username').value,
+          'password': document.getElementById('cpassword').value
+        }
+        document.getElementById('email').value = ""
+        document.getElementById('username').value = ""
+        document.getElementById('password').value = ""
+        document.getElementById('cpassword').value = ""
+        createuser(jsondata)
+      } else {
+
+
+        alert("Password and Confirm Password should be same.")
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZentroConnect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0F1B2D;
+      color: #F8FAFC;
+    }
+
+    /* ================= NAVBAR ================= */
+    .navbar {
+      height: 70px;
+      background: #0B1220;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid #1E293B;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 20px;
+      color: #1E90FF;
+    }
+
+    .settings {
+      position: absolute;
+      right: 30px;
+      font-size: 20px;
+      color: #94A3B8;
+      cursor: pointer;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      background: #0B1220;
+      border-radius: 0px 16px 16px 0px;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s ease;
+      justify-content: center;
+    }
+
+
+    .sidebar a {
+      width: 100%;
+      text-decoration: none;
+    }
+
+
+    .sidebar:hover {
+      display: flex;
+      height: 650px;
+      width: 200px;
+      border-radius: 0px 16px 16px 0px;
+
+    }
+
+    .side-item {
+      width: 100%;
+      padding: 20px;
+      cursor: pointer;
+      color: #94A3B8;
+      transition: 0.2s;
+    }
+
+    .side-item:hover {
+      background: #1E293B;
+      color: #1E90FF;
+    }
+
+    .side-text {
+      display: none;
+      opacity: 0;
+      transition: 0.9s;
+      white-space: nowrap;
+    }
+
+    .sidebar:hover .side-text {
+      display: inline-block;
+      opacity: 1;
+    }
+
+    /* ================= MAIN CONTAINER ================= */
+    .main {
+      margin-top: 90px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .feed-container {
+      width: 650px;
+    }
+
+    /* ================= POST CARD ================= */
+    .post {
+      background: #1E293B;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #334155;
+      margin-right: 12px;
+    }
+
+    .user-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .user-info span {
+      font-size: 12px;
+      color: #94A3B8;
+    }
+
+    .post-content {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
+
+    .post img {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 25px;
+      padding: 10px 0;
+      border-top: 1px solid #334155;
+      border-bottom: 1px solid #334155;
+      margin-bottom: 12px;
+    }
+
+    .actions span {
+      cursor: pointer;
+      color: #94A3B8;
+      transition: 0.2s;
+    }
+
+    .actions span:hover {
+      color: #1E90FF;
+    }
+
+    .comment-preview {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    /* Main Container */
+    .profile-container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 150px;
+      height: 150px;
+      background: #cfcfcf;
+      border-radius: 50%;
+    }
+
+    /* User Info */
+    .user-info h1 {
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .user-info p {
+      margin-top: 10px;
+      color: #b8c1ec;
+      max-width: 600px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Stats Box */
+    .stats {
+      margin-top: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-around;
+      padding: 25px 0;
+      position: relative;
+    }
+
+    .stats::before {
+      content: "";
+      position: absolute;
+      height: 60%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      left: 50%;
+      top: 20%;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat h2 {
+      font-size: 32px;
+      font-weight: 500;
+    }
+
+    .stat p {
+      font-size: 14px;
+      color: #b8c1ec;
+    }
+
+    /* Post Section */
+    .posts-section {
+      margin-top: 40px;
+    }
+
+    .posts-section h3 {
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    /* Grid */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .post {
+      background: #0c1a36;
+      aspect-ratio: 1/1;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">ZentroConnect</div>
+    <div class="settings">⚙</div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <a href="/home">
+      <div class="side-item">🏠 <span class="side-text">Home</span></div>
+    </a>
+    <a href="/search">
+      <div class="side-item">🔍 <span class="side-text">Search</span></div>
+    </a>
+    <a href="/create-post">
+      <div class="side-item">➕ <span class="side-text">Create</span></div>
+    </a>
+    <a href="/profile">
+      <div class="side-item">👤 <span class="side-text">Profile</span></div>
+    </a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="feed-container">
+
+      <div class="profile-container">
+
+        <div class="profile-header">
+          <div class="avatar"></div>
+
+          <div class="user-info">
+            <h1>Username</h1>
+            <p>
+              Alex Rivera is a passionate full-stack developer with 6 years of
+              experience building scalable web applications and optimizing system
+              performance. Skilled in JavaScript and backend architecture.
+            </p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <h2>0</h2>
+            <p>Follower</p>
+          </div>
+
+          <div class="stat">
+            <h2>0</h2>
+            <p>Following</p>
+          </div>
+        </div>
+
+        <div class="posts-section">
+          <h3>Your Post</h3>
+
+          <div class="posts-grid">
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

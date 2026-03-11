@@ -3,4 +3,18 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("You are now on the Core Application page.")
+    return render(request,'Login.html')
+
+
+def register(request):
+    return render(request,'Register.html')
+
+
+def home(request):
+    return render(request,'Post.html')
+
+def search(request):
+    return render(request,'Search.html')
+
+def profile(request):
+    return render(request,'Profile.html')
