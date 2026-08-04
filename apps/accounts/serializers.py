@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import User
+from .models import User,Profile
+from apps.posts.models import Post
+from apps.connections.models import Follow
+from apps.posts.serializer import PostSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer,TokenRefreshSerializer
 
 
@@ -70,3 +73,46 @@ class UserViewSerializer(serializers.ModelSerializer):
 
         model = User
         fields = ['id','username','bio','profile_pic']
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        
+        model = Profile
+        fields = ['bio','profile_pic']
+
+
+
+
+
+class UserProfileViewSerializer(serializers.ModelSerializer):
+
+    bio = serializers.CharField(source='profile.bio',max_length=500,read_only=True)
+    profile_pic = serializers.ImageField(source='profile.profile_pic',read_only=True)
+    post = serializers.SerializerMethodField()
+    follower = serializers.SerializerMethodField()
+    following = serializers.SerializerMethodField()
+    class Meta:
+
+        model = User
+        fields = ['id','username','bio','profile_pic','post','follower','following']
+
+    def get_post(self, obj):
+
+        post = Post.objects.filter(user=obj).order_by('-created_at')
+        if not post:
+            return {}
+        return PostSerializer(post,many=True).data
+
+    def get_follower(self, obj):
+
+        follower = Follow.objects.filter(following=obj).count()
+
+        return follower
+    
+    def get_following(self, obj):
+
+        following = Follow.objects.filter(follower=obj).count()
+
+        return following

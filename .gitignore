@@ -9,6 +9,7 @@ media/
 staticfiles/
 
 # Virtual Environment
+django-project/
 venv/
 env/
 

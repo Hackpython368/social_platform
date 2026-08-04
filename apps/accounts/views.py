@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegisterSerializer,CreateTokenObtainPairSerializer,CreateTokenRefreshPairSerializer,UserViewSerializer
+from .serializers import RegisterSerializer,CreateTokenObtainPairSerializer,CreateTokenRefreshPairSerializer,UserViewSerializer,ProfileSerializer,UserProfileViewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
-from .models import User
-from rest_framework.permissions import AllowAny
+from .models import User,Profile
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
 
 class RegisterView(APIView):
@@ -67,23 +67,44 @@ class UserView(APIView):
                 "message" : "You have to be authinticatied first"
             },status=401)
         
+class ProfileUpdate(APIView):
 
-# class UsersearchView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self,request):
 
-#     def get(self, request):
+        profile = Profile.objects.get(user=request.user)
+        
+        serializer = ProfileSerializer(profile,data=request.data,partial= True)
 
-#         user = User.objects.filter(username_icontains= request.GET.get("q"))
 
-#         try:
-#             serilaizer = UserViewSerializer(user, many= True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success' : True,
+                'data' : serializer.data
+            },status=201)
+        return Response({
+            'success' : False,
+            'error' : serializer.errors
+        },status=400)
+        
+class UserprofileView(APIView):
+    
 
-#             return Response({
-#                 "success" : True,
-#                 "message" : "The username your are searching is in data field.",
-#                 "data" : serilaizer.data
-#             },status=200)
-#         except:
-#             return Response({
-#                 "success" : False,
-#                 "message" : "some error occurs!!"
-#             },status=401)
+    def get(self,request, id):
+        user = User.objects.get(id=id)
+        
+        print(user)
+
+        try:
+            serializer = UserProfileViewSerializer(user)
+            return Response({
+                'success' : True,
+                'data' : serializer.data
+            },status=200)
+        except:
+            return Response({
+                "success" : False,
+                "message" : "Some error occurs while serializing data"
+            },status=200)

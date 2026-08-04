@@ -9,8 +9,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/style/theme.css">
+    <link rel="stylesheet" href="/static/style/createpoststyle.css">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+    
 
   <style>
+    
+
     * {
       margin: 0;
       padding: 0;
@@ -19,38 +25,11 @@
     }
 
     body {
-      background: #0F1B2D;
-      color: #F8FAFC;
+      background: var(--bg-color);
+      color: var(--text-color);
     }
 
-    /* ================= NAVBAR ================= */
-    .navbar {
-      height: 70px;
-      background: #0B1220;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      border-bottom: 1px solid #1E293B;
-      z-index: 1000;
-    }
 
-    .logo {
-      font-weight: 600;
-      font-size: 20px;
-      color: #1E90FF;
-    }
-
-    .settings {
-      position: absolute;
-      right: 30px;
-      font-size: 20px;
-      color: #94A3B8;
-      cursor: pointer;
-    }
 
     /* ================= SIDEBAR ================= */
     .sidebar {
@@ -58,7 +37,7 @@
       top: 50%;
       transform: translateY(-50%);
       width: 70px;
-      background: #0B1220;
+      background:var(--navbar-color);
       border-radius: 0px 16px 16px 0px;
       padding: 20px 0;
       display: flex;
@@ -73,6 +52,7 @@
       height: 650px;
       width: 200px;
       border-radius: 0px 16px 16px 0px;
+      transition: ease .4s;
 
     }
 
@@ -84,13 +64,13 @@
       width: 100%;
       padding: 20px;
       cursor: pointer;
-      color: #94A3B8;
+      color: var(--text-color);
       transition: 0.2s;
     }
 
     .side-item:hover {
-      background: #1E293B;
-      color: #1E90FF;
+      background: var(--post-bg);
+      color:var(--button-color);
     }
 
     .side-text {
@@ -103,11 +83,12 @@
     .sidebar:hover .side-text {
       display: inline-block;
       opacity: 1;
+      transition: ease .4s;
     }
 
     a {
       text-decoration: none;
-      color: #ffffff;
+      color: var(--button-text);
     }
 
     /* ================= MAIN CONTAINER ================= */
@@ -123,11 +104,11 @@
 
     /* ================= POST CARD ================= */
     .post {
-      background: #1E293B;
+      background: var(--card-color);
       border-radius: 16px;
       padding: 20px;
       margin-bottom: 25px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 20px var(--sidebar-color);
     }
 
     .post-header {
@@ -140,9 +121,10 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: #334155;
+      background: var(--border-color);
       margin-right: 12px;
       background-size: cover;
+      padding: 10px;
     }
 
     #profile-pic {
@@ -158,13 +140,13 @@
 
     .user-info span {
       font-size: 12px;
-      color: #94A3B8;
+      color: var(--secondary-text);
     }
 
     .post-content {
       font-size: 14px;
       line-height: 1.6;
-      color: #CBD5E1;
+      color: var(--text-color);
       margin-bottom: 12px;
     }
 
@@ -178,93 +160,196 @@
       display: flex;
       gap: 25px;
       padding: 10px 0;
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
       margin-bottom: 12px;
     }
 
     .actions span {
       cursor: pointer;
-      color: #94A3B8;
+      color: var(--secondary-text);
       transition: 0.2s;
     }
 
     .actions span:hover {
-      color: #1E90FF;
+      color: var(--button-color);
     }
 
     .comment-preview {
       font-size: 13px;
-      color: #94A3B8;
+      color: var(--secondary-text);
     }
 
 
-    .post-overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
+
+.theme{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
 }
 
-.post-modal{
-    width:600px;
-    background:#1E293B;
-    border-radius:12px;
-    padding:20px;
-    display:flex;
-    gap:20px;
+
+.theme-slider {
+    display: inline-block;
+    height: 22px;
+    position: relative;
+    width: 40px;
 }
 
-.post-left{
-    flex:1;
+.theme-slider input {
+    display: none;
 }
 
-.post-left textarea{
-    width:100%;
-    height:200px;
-    background:#0F1B2D;
-    border:none;
-    color:white;
-    padding:10px;
-    border-radius:8px;
+
+
+.slider {
+    background-color: var(--text-color);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
-.post-right{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+.slider:before {
+    background-color:var(--button-text);
+    bottom: 3px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 16px;
+    
 }
 
-.post-right input{
-    margin-bottom:10px;
+input:checked+.slider {
+    background-color: #66bb6a;
 }
 
-.post-submit{
-    margin-top:10px;
-    background:#1E90FF;
-    border:none;
-    padding:10px 15px;
-    color:white;
-    border-radius:6px;
-    cursor:pointer;
+input:checked+.slider:before {
+    transform: translateX(16px);
 }
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.hidden{
+  display: none;
+}
+
+.comment-txt{
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  height: 40px;
+}
+
+.comment-txt input{
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: var(--bg-color);
+}
+
+.comment-txt button{
+  padding: 10px;
+  color: var(--text-color);
+  border-radius: 20px;
+  background-color: var(--button-color);
+}
+
+.bottom-nav-mobile{
+  padding: 30px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: var(--navbar-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  visibility: hidden;
+}
+
+
+ /* position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      background:var(--navbar-color);
+      border-radius: 0px 16px 16px 0px;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s ease;
+      justify-content: center; */
+
+@media (max-width: 600px) {
+  .sidebar{
+    visibility: hidden;
+
+  }
+
+  .bottom-nav-mobile{
+    visibility: visible;
+  }
+}
+
+
+
+
   </style>
 </head>
 
 <body>
+  <div id="overlay"></div>
+    
 
   <!-- NAVBAR -->
   <div class="navbar">
+    <div class="navbar-balancer"></div>
     <div class="logo">ZentroConnect</div>
-    <div class="settings">⚙</div>
+    <div class="settings-btn" id="settingsBtn">⚙
+
+    </div>
+    <div class="settings-dropdown" id="settingsMenu">
+      <div class="settings-header">
+  <span>Settings</span>
+  <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+      <div class="setting-item">
+
+<span>Theme</span>
+
+<label class="switch">
+<input type="checkbox" id="themeToggle">
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="menu-item" id="profileUpdatebtn">
+Edit Profile
+</div>
+
+<div class="menu-item">
+About
+</div>
+
+
+    </div>
   </div>
 
   <!-- SIDEBAR -->
@@ -283,16 +368,23 @@
     </a>
   </div>
 
+  <div class="bottom-nav-mobile">
+    <a href="/home">🏠</a>
+    <a href="/search">🔍</a>
+    <a href="#" id="openPostModal">➕</a>
+    <a href="/profile">👤</a>
+  </div>
+
   <!-- MAIN CONTENT -->
   <div class="main">
     <div class="feed-container" id="feed">
 
-
-
+      
+      
     </div>
   </div>
   <script>
-
+    
     const loadfeed = () => {
       fetch('http://127.0.0.1:8000/api/accounts/user/feed/', {
         method: "GET",
@@ -310,60 +402,62 @@
             },
             body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
           }).then(res => res.json()).then(data => {
+            console.log(data)
             localStorage.setItem('access', data.data.access)
             loadfeed();
-
+            
           })
         } else {
           document.getElementById("feed").innerHTML = ""
           for (let i = 0; data.data.length > i; i++) {
-
+            
             document.getElementById("feed").innerHTML += `
-          <div class="post">
-            <div class="post-header">
-              <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']})"></div>
-              <div class="user-info">
-                <h4>${data['data'][i]['username']}</h4>
-                <span>12:30 pm · 2 Jan 2026</span>
+            <div class="post" id="${data['data'][i]['id']}">
+              <div class="post-header">
+                ${data['data'][i]['profile_pic']==null ? `<div class="avatar" ><i class="fa-solid fa-user" style="font-size: 20px;"></i></div>`: `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
+                <!-- <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']})"></div> -->
+                <div class="user-info">
+                  <h4>${data['data'][i]['username']}</h4>
+                  <span>12:30 pm · 2 Jan 2026</span>
+                </div>
               </div>
-            </div>
-            
-            <div class="post-content">
-              ${data['data'][i]['content']}
-            </div>
-            ${data['data'][i]['post_img'] == null ? "" : `<img src="${data['data'][i]['post_img']}">`}
-            
-            
-            <div class="actions">
-              <span id="${data['data'][i]['id']}" class="like-btn"><i class="fa-solid fa-heart"></i>${data['data'][i]['like_count']}</span>
-              <span id="comment">💬 ${data['data'][i]['comment_count']} Comment</span>
-            </div>
-            
-            <div class="comment-preview">
-              <strong>User2:</strong> Amazing perspective 👏
-            </div>
-            
-          </div>`
+              
+              <div class="post-content">
+                <p>${data['data'][i]['content'].replace('\n','<br><br>')}</p>
+              </div>
+              ${data['data'][i]['post_img'] == null ? "" : `<img src="${data['data'][i]['post_img']}">`}
+              
+              
+              <div id="rect-container" class="actions">
+                <span class="like-btn">${ data['data'][i]['liked']==true ? `<i style="color:red" class="fa-solid fa-heart"></i>`: `<i class="fa-solid fa-heart"></i>`} ${data['data'][i]['like_count']}</span>
+                <span id="comment">💬 ${data['data'][i]['comment_count']} Comment</span>
+              </div>
+              <div class="comment-txt"><input class="comment-text" type="text" placeholder="Comment...."><button class="comment-btn">Comment</button></div>
+              
+              <div class="comment-preview">
+                ${ data['data'][i]['latest_comment']==null ? `` : `<strong>${data['data'][i]['latest_comment']['username']}</strong> ${data['data'][i]['latest_comment']['comment_text']}`}
+              </div>
+              
+            </div>`
           }
         }
 
       })
     }
-
+    
     loadfeed()
-
+    
     const resultcontainer = document.getElementById('feed')
-
+    
     resultcontainer.addEventListener('click', (event) => {
-      console.log("clicked")
+      const post = event.target.closest('.post')
       console.log(event.target)
+      
       if (event.target.classList.contains('like-btn')) {
-        const likebtn = event.target
-        console.log("hi")
-
+        
         const likepost = () => {
           console.log("post Liked")
-          fetch(`http://127.0.0.1:8000/api/accounts/user/${likebtn.id}/post/like/`, {
+          fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/like/`, {
             method: "POST",
             headers: {
               "Authorization": "Bearer " + localStorage.getItem("access")
@@ -380,9 +474,9 @@
               }).then(res => res.json()).then(data => {
                 localStorage.setItem('access', data.data.access)
                 likepost()
-
+                
               })
-
+              
             } else {
               loadfeed()
             }
@@ -390,53 +484,132 @@
         }
         likepost()
       }
-    })
-
-
-
-
-
-
-
-
-
-
-
-    function createPostModal() {
-
-      const overlay = document.createElement("div");
-      overlay.className = "post-overlay";
-
-      const modal = document.createElement("div");
-      modal.className = "post-modal";
-
-      modal.innerHTML = `
-        <div class="post-left">
-            <h3>Create Post</h3>
-            <textarea placeholder="Write something..."></textarea>
-        </div>
-
-        <div class="post-right">
-            <input type="file" accept="image/*,video/*">
-            <button class="post-submit">Post</button>
-        </div>
-    `;
-
-      overlay.appendChild(modal);
-      document.body.appendChild(overlay);
-
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) {
-          overlay.remove();
+      
+      if(event.target.classList.contains('comment-btn')){
+        const inputtext = post.querySelector('.comment-text')
+        console.log(inputtext)
+        
+        if (inputtext){
+          
+          console.log( {
+              'comment_text' : inputtext.value
+            });
+            fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/comment/`,{
+              method: "POST",
+              headers:  {
+                "Authorization": "Bearer " + localStorage.getItem("access"),
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                'comment_text' : inputtext.value
+              })
+            }).then(res => res.json()).then(data => {
+              if (data.code == "token_not_valid") {
+                console.log(localStorage.getItem('refresh'));
+                fetch("http://127.0.0.1:8000/api/token/refresh/", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
+                }).then(res => res.json()).then(data => {
+                  localStorage.setItem('access', data.data.access)
+                  likepost()
+                  
+                })
+                
+              } else {
+                loadfeed()
+              }
+            })
+            
+          }
+          
         }
-      });
+      })
+      
 
-    }
+      
 
-    document.getElementById("openPostModal").addEventListener("click", createPostModal);
+      
+      
+      
+      
+      
+      
+      
+      
+      const profileUpdate = `<div class="overlay">
+        
+        <div class="upload-modal">
+          
+          <h3>Update Profile Data</h3>
+          
+          <!-- Upload Area -->
+          
+          <label class="upload-area">
+            
+            <input id="fileinput" type="file" hidden>
+            
+            <div class="upload-content">
+              <div class="icon">⬆</div>
+              <p><span>Drag & Drop</span> or <b>Choose file</b> to upload</p>
+              <small>Supported formats: JPG or PNG</small>
+            </div>
+            
+          </label>
+          
+          
+          <!-- Bio Field -->
+          
+          <div class="bio-section">
+            
+            <label>Bio</label>
+            <textarea id="bioinput" placeholder="Write short bio..."></textarea>
+            
+          </div>
+          
+          
+          <!-- Buttons -->
+          
+          <div class="modal-buttons">
+        
+            <button class="cancel-btn" onclick=removeOverlay()>Cancel</button>
+            <button class="upload-btn" onclick=updateProfile()>Upload</button>
+            
+          </div>
+          
+        </div>
+      </div>`
+      profileUpdatebtn.addEventListener('click',()=>{
+        document.getElementById('overlay').innerHTML += profileUpdate
+      })
+      
+      // const updateProfile = () =>{
+        
+      //   const formdata = new FormData()
+      //   const fileinput = document.getElementById('fileinput')
+      //   const bioinput = document.getElementById('bioinput')
+        
+        
+      //   formdata.append('bio',bioinput.value)
+      //   formdata.append('profile_pic',fileinput.files[0])
+        
+      //   fetch('http://127.0.0.1:8000/api/accounts/profile/',{
+      //     method: "POST",
+      //     headers: {
+      //       "Authorization": "Bearer " + localStorage.getItem("access")
+      //     },
+      //     body : formdata
+      //   }).then(res =>res.json()).then(data => {
+      //     console.log(data)
+      //   })
+      // }
 
+      
+    </script>
+    <script src="/static/script/createpost.js"></script>
+    <script src="/static/script/navsettings.js"></script>
+  </body>
 
-  </script>
-</body>
-
-</html>
+  </html>

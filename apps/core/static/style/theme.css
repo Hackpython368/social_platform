@@ -1,0 +1,294 @@
+:root {
+
+    /* ===== LIGHT THEME ===== */
+
+    --bg-color: #E5E7EB;
+    --card-color: #5BC0BE;
+    --navbar-color: #5BC0BE;
+    --sidebar-color: #5BC0BE;
+
+    --text-color: #0F172A;
+    --secondary-text: #475569;
+
+    --post-bg: #FFFFFF;
+    --border-color: #CBD5E1;
+
+    --button-color: #1E90FF;
+    --button-text: #FFFFFF;
+
+}
+
+body.dark-theme {
+
+    /* ===== DARK THEME ===== */
+
+    --bg-color: #0F1B2D;
+    --card-color: #1E293B;
+    --navbar-color: #0B1220;
+    --sidebar-color: #0B1220;
+
+    --text-color: #F8FAFC;
+    --secondary-text: #94A3B8;
+
+    --post-bg: #1E293B;
+    --border-color: #334155;
+
+    --button-color: #1E90FF;
+    --button-text: #FFFFFF;
+
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    height: 70px;
+    background: var(--navbar-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid var(--card-color);
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--button-color);
+}
+
+.settings {
+    position: relative;
+    right: 30px;
+    font-size: 20px;
+    color: var(--secondary-text);
+    cursor: pointer;
+}
+
+.settings-container {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    width: 200px;
+    height: 200px;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    border: .4px solid var(--secondary-text);
+    border-radius: 10px;
+}
+
+.settings-container .cross-btn {
+    position: relative;
+    left: 170px;
+    top: 10px;
+    margin-bottom: 20px;
+}
+
+.settings-container button {
+    background-color: transparent;
+    color: var(--text-color);
+    padding: 10px;
+    border: 0px solid var(--secondary-text);
+
+}
+
+.settings-container button:hover {
+    background-color: var(--post-bg);
+}
+
+
+/* Toggle Switch */
+
+.switch {
+
+    position: relative;
+    width: 40px;
+    height: 22px;
+
+}
+
+.switch input {
+
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+}
+
+.slider {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: #3b475c;
+
+    border-radius: 20px;
+
+    transition: 0.3s;
+
+}
+
+.slider:before {
+
+    content: "";
+
+    position: absolute;
+
+    height: 16px;
+    width: 16px;
+
+    left: 3px;
+    bottom: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.3s;
+
+}
+
+input:checked+.slider {
+
+    background: #3b82f6;
+
+}
+
+input:checked+.slider:before {
+
+    transform: translateX(18px);
+
+}
+
+
+/* Dropdown */
+
+.settings-dropdown {
+
+    position: absolute;
+
+    top: 70px;
+    right: 20px;
+
+    width: 240px;
+
+    background: rgba(20, 32, 58, 0.95);
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    padding: 18px;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+
+    color: white;
+
+    display: none;
+
+    animation: dropdownFade 0.2s ease;
+
+}
+
+.settings-dropdown.active {
+    display: block;
+}
+
+/* Header */
+
+.settings-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+
+    font-size: 25px;
+    opacity: 0.8;
+
+}
+
+/* Close */
+
+.close-btn {
+
+    background: none;
+    border: none;
+
+    color: #9fb3c8;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+/* Menu Items */
+
+.menu-item {
+
+    padding: 10px 8px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+.menu-item:hover {
+
+    background: rgba(255, 255, 255, 0.06);
+
+}
+
+/* Theme Item */
+
+.setting-item {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 8px;
+
+    border-radius: 8px;
+
+}
+
+
+/* Settings Button */
+
+.settings-btn {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    background: rgba(0, 0, 0, 0.05);
+
+    transition: 0.2s;
+
+}
+
+.settings-btn:hover {
+    transform: rotate(30deg);
+}

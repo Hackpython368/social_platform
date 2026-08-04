@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style/theme.css">
+  <link rel="stylesheet" href="/static/style/createpoststyle.css">
+      <link rel="stylesheet" href="/static/style/navbar.css">
+
 
   <style>
     * {
@@ -22,35 +26,7 @@
       color: #F8FAFC;
     }
 
-    /* ================= NAVBAR ================= */
-    .navbar {
-      height: 70px;
-      background: #0B1220;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      border-bottom: 1px solid #1E293B;
-      z-index: 1000;
-    }
-
-    .logo {
-      font-weight: 600;
-      font-size: 20px;
-      color: #1E90FF;
-    }
-
-    .settings {
-      position: absolute;
-      right: 30px;
-      font-size: 20px;
-      color: #94A3B8;
-      cursor: pointer;
-    }
-
+  
     /* ================= SIDEBAR ================= */
     .sidebar {
       position: fixed;
@@ -267,15 +243,198 @@
       transform: scale(1.1);
       opacity: 0.8;
     }
+
+    .profile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .profile-card {
+      width: 400px;
+      background: var(--bg-color);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Close */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Top */
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+    }
+
+    .username {
+      color: var(--text-color);
+    }
+
+    .bio {
+      font-size: 12px;
+      color: var(--text-color);
+      margin-bottom: 15px;
+    }
+
+    /* Stats */
+    .profile-stats {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: var(--card-color);
+      color: var(--text-color);
+      border-radius: 15px;
+      padding: 20px 10px;
+      margin-bottom: 15px;
+    }
+
+    .profile-stats h1 {
+      margin: 0;
+    }
+
+    .divider {
+      width: 4px;
+      height: 50px;
+      background: var(--secondary-text);
+      border-radius: 10px;
+    }
+
+    /* Button */
+    .follow-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      background: var(--button-color);
+      color: var(--button-text);
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    /* Posts */
+    .post-section {
+      text-align: left;
+    }
+
+    .post-box {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      background:var(--card-color);
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+
+    /* Hidden */
+    .hidden {
+      display: none;
+    }
+
+
+    .post-demo{
+      height: 140px;
+      width: 110px;
+      background-size: cover;
+
+    }
+
+    .bottom-nav-mobile{
+  padding: 30px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: var(--navbar-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  visibility: hidden;
+}
+
+
+ /* position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      background:var(--navbar-color);
+      border-radius: 0px 16px 16px 0px;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s ease;
+      justify-content: center; */
+
+@media (max-width: 600px) {
+  .sidebar{
+    visibility: hidden;
+
+  }
+
+  .bottom-nav-mobile{
+    visibility: visible;
+  }
+}
   </style>
 </head>
 
 <body>
+    <div id="overlay"></div>
+
 
   <!-- NAVBAR -->
   <div class="navbar">
+    <div class="navbar-balancer"></div>
     <div class="logo">ZentroConnect</div>
-    <div class="settings">⚙</div>
+    <div class="settings-btn" id="settingsBtn">⚙
+
+    </div>
+    <div class="settings-dropdown" id="settingsMenu">
+      <div class="settings-header">
+  <span>Settings</span>
+  <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+      <div class="setting-item">
+
+<span>Theme</span>
+
+<label class="switch">
+<input type="checkbox" id="themeToggle">
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="menu-item" id="profileUpdatebtn">
+Edit Profile
+</div>
+
+<div class="menu-item">
+About
+</div>
+
+
+    </div>
+  </div>
+
   </div>
 
   <!-- SIDEBAR -->
@@ -286,14 +445,24 @@
     <a href="/search">
       <div class="side-item">🔍 <span class="side-text">Search</span></div>
     </a>
-    <a href="/create-post">
-      <div class="side-item">➕ <span class="side-text">Create</span></div>
+    <a href="#">
+      <div class="side-item" id="openPostModal">➕ <span class="side-text">Create</span></div>
     </a>
     <a href="/profile">
       <div class="side-item">👤 <span class="side-text">Profile</span></div>
     </a>
   </div>
 
+
+  <div class="bottom-nav-mobile">
+    <a href="/home">🏠</a>
+    <a href="/search">🔍</a>
+    <a href="#" id="openPostModal">➕</a>
+    <a href="/profile">👤</a>
+  </div>
+
+
+  <div class="profile-overlay hidden" id="profileOverlay"></div>
   <!-- MAIN CONTENT -->
   <div class="main">
     <div id="main-container" class="feed-container">
@@ -307,10 +476,10 @@
 
     </div>
   </div>
-
-
+  
   </div>
   </div>
+  <script src="/static/script/navsettings.js"></script>
   <script>
 
     fetch('http://127.0.0.1:8000/api/accounts/user/', {
@@ -321,9 +490,8 @@
     }).then(res => res.json()).then(data => {
       console.log(data)
       for (let i = 0; data.data.length > i; i++) {
-        document.getElementById('result-container').innerHTML += `<div class="card">
-  <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;">
-  </div>
+        document.getElementById('result-container').innerHTML += `<div class="card" id="${data['data'][i]['id']}">
+          ${data['data'][i]['profile_pic'] == null ? `<div class="avatar"><i class="fa-solid fa-user" style="font-size: 44px;"></i></div>` : `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
 
   <div class="content">
     <h2>${data['data'][i]['username']}</h2>
@@ -344,8 +512,10 @@
           console.log(data)
           document.getElementById('result-container').innerHTML = ""
           for (let i = 0; data.data.length > i; i++) {
-            document.getElementById('result-container').innerHTML += `<div class="card">
-                        <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']})"></div>
+            console.log(data['data'][i]['profile_pic'])
+            document.getElementById('result-container').innerHTML += `<div class="card" id="${data['data'][i]['id']}">
+                      ${data['data'][i]['profile_pic'] == null ? `<div class="avatar"><i class="fa-solid fa-user" style="font-size: 44px;"></i></div>` : `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
+              
 
                         <div class="content">
                           <h2>${data['data'][i]['username']}</h2>
@@ -357,8 +527,175 @@
         })
     })
 
+
+    let profileview = (data)=>{
+
+      const overlayprofile = `
+  <div class="profile-card" id="${data['data']['id']}">
+
+    <!-- Close Button -->
+    <span class="close-btn" id="closeProfile">✖</span>
+
+    <!-- Profile Top -->
+    <div class="profile-top">
+      <div class="profile-pic" style="background-image: url(${data['data']['profile_pic']});  background-size: cover;"></div>
+      <h2 class="username">${data['data']['username']}</h2>
+      <p class="bio">
+        ${data['data']['bio']}
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="profile-stats">
+      <div>
+        <h1>${data['data']['follower']}</h1>
+        <span>Follower</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div>
+        <h1>${data['data']['following']}</h1>
+        <span>Following</span>
+      </div>
+    </div>
+
+    <!-- Follow Button -->
+    <button class="follow-btn" onclick="follow_unfollow()">Follow / UnFollow</button>
+
+    <!-- Posts -->
+    <div class="post-section">
+      <h4>Post</h4>
+      <div class="post-box" id="post-container">
+      </div>
+    </div>
+
+  </div>`
+  
+  const overlay = document.getElementById('profileOverlay');
+  overlay.innerHTML += overlayprofile;
+  overlay.classList.toggle('hidden')
+  
+  console.log(data['data']['post'])
+  for (let i = 0 ; data['data']['post'].length > i ; i++){
+  const newpost = `<div class="post-demo" style="background-image: url(${data['data']['post'][i]['post_img']}); background-size: cover;"></div>`;
+  if (data['data']['post'][i]['post_img']!=null){
+
+    document.getElementById('post-container').innerHTML += newpost;
+  }
+}
+
+
+    }
+
     
+    document.getElementById('result-container').addEventListener('click',(event) => {
+      console.log(event.target);
+      if (event.target.classList.contains('card')){
+        console.log(event.target.id)
+        fetch(`http://127.0.0.1:8000/api/accounts/profile/${event.target.id}/`)
+        .then(res => res.json())
+        .then(data => {
+          profileview(data)
+        })
+      }
+    })
+    
+    
+    document.getElementById('profileOverlay').addEventListener('click',(event)=>{
+      console.log(event.target)
+      if(event.target.classList.contains('close-btn')){
+        document.getElementById('profileOverlay').innerHTML = ``
+        document.getElementById('profileOverlay').classList.toggle('hidden');
+      }
+    })
+
+
+    follow_unfollow = () =>{
+      const user_id = document.getElementById('profileOverlay').querySelector('.profile-card').id
+
+      fetch(`http://127.0.0.1:8000/api/accounts/con/${user_id}/follow/`,{
+        method:"POST",
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("access")
+        }
+      }).then(res => res.json())
+      .then(data => console.log(data))
+    }
+    const profileUpdate = `<div class="overlay">
+
+    <div class="upload-modal">
+      
+      <h3>Update Profile Data</h3>
+      
+      <!-- Upload Area -->
+      
+      <label class="upload-area">
+        
+        <input id="fileinput" type="file" hidden>
+
+        <div class="upload-content">
+          <div class="icon">⬆</div>
+          <p><span>Drag & Drop</span> or <b>Choose file</b> to upload</p>
+          <small>Supported formats: JPG or PNG</small>
+        </div>
+        
+      </label>
+      
+      
+      <!-- Bio Field -->
+      
+      <div class="bio-section">
+        
+        <label>Bio</label>
+        <textarea id="bioinput" placeholder="Write short bio..."></textarea>
+        
+      </div>
+      
+      
+      <!-- Buttons -->
+      
+      <div class="modal-buttons">
+        
+        <button class="cancel-btn" onclick=removeOverlay()>Cancel</button>
+        <button class="upload-btn" onclick=updateProfile()>Upload</button>
+        
+      </div>
+      
+    </div>
+  </div>`
+
+
+    profileUpdatebtn.addEventListener('click',()=>{
+    document.getElementById('overlay').innerHTML += profileUpdate
+})
+
+// const updateProfile = () =>{
+
+//     const formdata = new FormData()
+//     const fileinput = document.getElementById('fileinput')
+//     const bioinput = document.getElementById('bioinput')
+
+
+//     formdata.append('bio',bioinput.value)
+//     formdata.append('profile_pic',fileinput.files[0])
+
+//     fetch('http://127.0.0.1:8000/api/accounts/profile/',{
+//       method: "POST",
+//       headers: {
+//               "Authorization": "Bearer " + localStorage.getItem("access")
+//             },
+//       body : formdata
+//     }).then(res =>res.json()).then(data => {
+//       console.log(data)
+//     })
+//   }
+   let removeOverlay = () => {
+    document.getElementById('overlay').innerText = ""
+   }
   </script>
+    <script src="/static/script/createpost.js"></script>
+
 </body>
 
 </html>

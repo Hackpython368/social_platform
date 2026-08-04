@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser
 from .serializer import PostSerializer,CommentSerializer,FeedSerializer
 from rest_framework.response import Response
 from .models import Post,Like
@@ -10,9 +11,9 @@ from apps.connections.models import Follow
 class PostView(APIView):
 
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser]
 
     def post(self,request):
-
         try: 
             serializer = PostSerializer(data= request.data)
         except ValueError as e:
@@ -23,7 +24,10 @@ class PostView(APIView):
         
         if serializer.is_valid():
             serializer.save(user=request.user)
-        return Response(serializer.data,status=201)
+        return Response({
+            "success" : True,
+            "data" : serializer.data
+        },status=201)
     
 
 class LikeView(APIView):
@@ -73,7 +77,7 @@ class CommentView(APIView):
         user = request.user
 
         id = Post.objects.get(id=id)
-
+        print(request.data)
         try :
             serializer = CommentSerializer(data=request.data)
         except:
@@ -111,30 +115,33 @@ class FeedView(APIView):
 
         following_id = Follow.objects.all().filter(follower=user).values_list('following',flat=True)
 
+        print(following_id.values_list())
+
         if not following_id:
             posts = Post.objects.order_by('-created_at')
         else:
-            posts = Post.objects.filter(user__in=following_id).order_by('-created_at')
+            posts = Post.objects.order_by('-created_at')
+            # posts = Post.objects.filter(user__in=following_id).order_by('-created_at')
 
 
         try :
-            serializer = FeedSerializer(posts,many=True)
+            serializer = FeedSerializer(posts,many=True,context={'request': request})
         except:
             return Response({
                 "success" : False,
                 "message":"Error will serializing the data"
             },status=400)
         
-        try:
-            return Response({
+        # try:
+        return Response({
 
                 "success" : True,
                 "message" : "Personalized post feed",
                 "data": serializer.data
             },status=200)
-        except:
-            return Response({
-                "success" : False,
-                "message":"some error occurs"
-            },status=400)
+        # except:
+        #     return Response({
+        #         "success" : False,
+        #         "message":"some error occurs"
+        #     },status=400)
     
