@@ -113,6 +113,8 @@ class FeedView(APIView):
 
         user = request.user
 
+        print(user.id)
+
         following_id = Follow.objects.all().filter(follower=user).values_list('following',flat=True)
 
         print(following_id.values_list())
@@ -137,6 +139,7 @@ class FeedView(APIView):
 
                 "success" : True,
                 "message" : "Personalized post feed",
+                'user_id' : user.id,
                 "data": serializer.data
             },status=200)
         # except:

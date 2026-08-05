@@ -9,256 +9,12 @@
   <link rel="stylesheet" href="/static/style/theme.css">
   <link rel="stylesheet" href="/static/style/navbar.css">
   <link rel="stylesheet" href="/static/style/createpoststyle.css">
-
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background: #0F1B2D;
-      color: #F8FAFC;
-    }
-
-
-
-    /* ================= SIDEBAR ================= */
-    .sidebar {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 70px;
-      background: #0B1220;
-      border-radius: 0px 16px 16px 0px;
-      padding: 20px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: 0.3s ease;
-      justify-content: center;
-    }
-
-
-    .sidebar a {
-      width: 100%;
-      text-decoration: none;
-    }
-
-
-    .sidebar:hover {
-      display: flex;
-      height: 650px;
-      width: 200px;
-      border-radius: 0px 16px 16px 0px;
-
-    }
-
-    .side-item {
-      width: 100%;
-      padding: 20px;
-      cursor: pointer;
-      color: #94A3B8;
-      transition: 0.2s;
-    }
-
-    .side-item:hover {
-      background: #1E293B;
-      color: #1E90FF;
-    }
-
-    .side-text {
-      display: none;
-      opacity: 0;
-      transition: 0.9s;
-      white-space: nowrap;
-    }
-
-    .sidebar:hover .side-text {
-      display: inline-block;
-      opacity: 1;
-    }
-
-    /* ================= MAIN CONTAINER ================= */
-    .main {
-      margin-top: 90px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .feed-container {
-      width: 650px;
-    }
-
-    /* ================= POST CARD ================= */
-    .post {
-      background: #1E293B;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .post-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-    .avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #334155;
-      margin-right: 12px;
-    }
-
-    .user-info h4 {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .user-info span {
-      font-size: 12px;
-      color: #94A3B8;
-    }
-
-    .post-content {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #CBD5E1;
-      margin-bottom: 12px;
-    }
-
-    .post img {
-      width: 100%;
-      border-radius: 14px;
-      margin-bottom: 12px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 25px;
-      padding: 10px 0;
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
-      margin-bottom: 12px;
-    }
-
-    .actions span {
-      cursor: pointer;
-      color: #94A3B8;
-      transition: 0.2s;
-    }
-
-    .actions span:hover {
-      color: #1E90FF;
-    }
-
-    .comment-preview {
-      font-size: 13px;
-      color: #94A3B8;
-    }
-
-    /* Main Container */
-    .profile-container {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    /* Profile Header */
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
-    /* Avatar */
-    .avatar {
-      width: 150px;
-      height: 150px;
-      background: #cfcfcf;
-      border-radius: 50%;
-    }
-
-    /* User Info */
-    .user-info h1 {
-      font-size: 28px;
-      font-weight: 500;
-    }
-
-    .user-info p {
-      margin-top: 10px;
-      color: #b8c1ec;
-      max-width: 600px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    /* Stats Box */
-    .stats {
-      margin-top: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      display: flex;
-      justify-content: space-around;
-      padding: 25px 0;
-      position: relative;
-    }
-
-    .stats::before {
-      content: "";
-      position: absolute;
-      height: 60%;
-      width: 1px;
-      background: rgba(255, 255, 255, 0.2);
-      left: 50%;
-      top: 20%;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat h2 {
-      font-size: 32px;
-      font-weight: 500;
-    }
-
-    .stat p {
-      font-size: 14px;
-      color: #b8c1ec;
-    }
-
-    /* Post Section */
-    .posts-section {
-      margin-top: 40px;
-    }
-
-    .posts-section h3 {
-      margin-bottom: 20px;
-      font-weight: 400;
-    }
-
-    /* Grid */
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .post {
-      background: #0c1a36;
-      aspect-ratio: 1/1;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-  </style>
+  <link rel="stylesheet" href="/static/style/Profile.css">
 </head>
 
 <body>
+
+  
   <div id="overlay"></div>
 
   <!-- NAVBAR -->
@@ -312,6 +68,7 @@ About
     </a>
   </div>
 
+
   <!-- MAIN CONTENT -->
   <div class="main">
     <div class="feed-container">
@@ -322,11 +79,9 @@ About
           <div class="avatar" id="avatar"></div>
 
           <div class="user-info" >
-            <h1 id="username">Username</h1>
+            <h1 id="username">Loading....</h1>
             <p id="user-bio">
-              Alex Rivera is a passionate full-stack developer with 6 years of
-              experience building scalable web applications and optimizing system
-              performance. Skilled in JavaScript and backend architecture.
+              Loading....
             </p>
           </div>
         </div>
@@ -347,12 +102,6 @@ About
           <h3>Your Post</h3>
 
           <div class="posts-grid" id="post-container">
-            <!-- <div class="post"></div>
-            <div class="post"></div>
-            <div class="post"></div>
-            <div class="post"></div>
-            <div class="post"></div>
-            <div class="post"></div> -->
           </div>
         </div>
 
@@ -367,9 +116,10 @@ About
     let followerCount = document.getElementById('follower-count');
     let followingCount = document.getElementById('following-count');
     let avatar = document.getElementById('avatar');
+    let user_id = localStorage.getItem('user_id')
     
     
-    fetch(`http://127.0.0.1:8000/api/accounts/profile/9/`)
+    fetch(`http://127.0.0.1:8000/api/accounts/profile/${user_id}/`)
     .then(res => res.json())
     .then(data => {
       console.log(data)

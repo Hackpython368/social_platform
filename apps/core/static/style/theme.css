@@ -292,3 +292,69 @@ input:checked+.slider:before {
 .settings-btn:hover {
     transform: rotate(30deg);
 }
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    background: var(--navbar-color);
+    border-radius: 0px 16px 16px 0px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s ease;
+    justify-content: center;
+}
+
+.sidebar:hover {
+    display: flex;
+    height: 650px;
+    width: 200px;
+    border-radius: 0px 16px 16px 0px;
+    transition: ease .4s;
+
+}
+
+.sidebar a {
+    width: 100%;
+}
+
+.side-item {
+    width: 100%;
+    padding: 20px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: 0.2s;
+}
+
+.side-item:hover {
+    background: var(--post-bg);
+    color: var(--button-color);
+}
+
+.side-text {
+    display: none;
+    opacity: 0;
+    transition: 0.9s;
+    white-space: nowrap;
+}
+
+.sidebar:hover .side-text {
+    display: inline-block;
+    opacity: 1;
+    transition: ease .4s;
+}
+
+a {
+    text-decoration: none;
+    color: var(--button-text);
+}
+
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
