@@ -10,15 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style/theme.css">
   <link rel="stylesheet" href="/static/style/createpoststyle.css">
-      <link rel="stylesheet" href="/static/style/navbar.css">
-      <link rel="stylesheet" href="/static/style/theme.css">
-      <link rel="stylesheet" href="/static/style/search.css">
+  <link rel="stylesheet" href="/static/style/navbar.css">
+  <link rel="stylesheet" href="/static/style/theme.css">
+  <link rel="stylesheet" href="/static/style/search.css">
 
 
 </head>
 
 <body>
-    <div id="overlay"></div>
+  <div id="overlay"></div>
 
 
   <!-- NAVBAR -->
@@ -30,27 +30,27 @@
     </div>
     <div class="settings-dropdown" id="settingsMenu">
       <div class="settings-header">
-  <span>Settings</span>
-  <button class="close-btn" id="closeBtn">✕</button>
-  </div>
+        <span>Settings</span>
+        <button class="close-btn" id="closeBtn">✕</button>
+      </div>
       <div class="setting-item">
 
-<span>Theme</span>
+        <span>Theme</span>
 
-<label class="switch">
-<input type="checkbox" id="themeToggle">
-<span class="slider"></span>
-</label>
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider"></span>
+        </label>
 
-</div>
+      </div>
 
-<div class="menu-item" id="profileUpdatebtn">
-Edit Profile
-</div>
+      <div class="menu-item" id="profileUpdatebtn">
+        Edit Profile
+      </div>
 
-<div class="menu-item">
-About
-</div>
+      <div class="menu-item">
+        About
+      </div>
 
 
     </div>
@@ -78,7 +78,7 @@ About
   <div class="bottom-nav-mobile">
     <a href="/home">🏠</a>
     <a href="/search">🔍</a>
-    <a href="#" id="openPostModal">➕</a>
+    <a href="#" id="openPostModalMobile">➕</a>
     <a href="/profile">👤</a>
   </div>
 
@@ -97,10 +97,9 @@ About
 
     </div>
   </div>
-  
+
   </div>
   </div>
-  <script src="/static/script/navsettings.js"></script>
   <script>
 
     fetch('http://127.0.0.1:8000/api/accounts/user/', {
@@ -148,7 +147,7 @@ About
     })
 
 
-    let profileview = (data)=>{
+    let profileview = (data) => {
 
       const overlayprofile = `
   <div class="profile-card" id="${data['data']['id']}">
@@ -191,56 +190,56 @@ About
     </div>
 
   </div>`
-  
-  const overlay = document.getElementById('profileOverlay');
-  overlay.innerHTML += overlayprofile;
-  overlay.classList.toggle('hidden')
-  
-  console.log(data['data']['post'])
-  for (let i = 0 ; data['data']['post'].length > i ; i++){
-  const newpost = `<div class="post-demo" style="background-image: url(${data['data']['post'][i]['post_img']}); background-size: cover;"></div>`;
-  if (data['data']['post'][i]['post_img']!=null){
 
-    document.getElementById('post-container').innerHTML += newpost;
-  }
-}
+      const overlay = document.getElementById('profileOverlay');
+      overlay.innerHTML += overlayprofile;
+      overlay.classList.toggle('hidden')
+
+      console.log(data['data']['post'])
+      for (let i = 0; data['data']['post'].length > i; i++) {
+        const newpost = `<div class="post-demo" style="background-image: url(${data['data']['post'][i]['post_img']}); background-size: cover;"></div>`;
+        if (data['data']['post'][i]['post_img'] != null) {
+
+          document.getElementById('post-container').innerHTML += newpost;
+        }
+      }
 
 
     }
 
-    
-    document.getElementById('result-container').addEventListener('click',(event) => {
-      console.log(event.target);
-      if (event.target.classList.contains('card')){
-        console.log(event.target.id)
-        fetch(`http://127.0.0.1:8000/api/accounts/profile/${event.target.id}/`)
-        .then(res => res.json())
-        .then(data => {
-          profileview(data)
-        })
+
+    document.getElementById('result-container').addEventListener('click', (event) => {
+      console.log(event.target.closest('.card'));
+      {
+        console.log(event.target.closest('.card').id)
+        fetch(`http://127.0.0.1:8000/api/accounts/profile/${event.target.closest('.card').id}/`)
+          .then(res => res.json())
+          .then(data => {
+            profileview(data)
+          })
       }
     })
-    
-    
-    document.getElementById('profileOverlay').addEventListener('click',(event)=>{
+
+
+    document.getElementById('profileOverlay').addEventListener('click', (event) => {
       console.log(event.target)
-      if(event.target.classList.contains('close-btn')){
+      if (event.target.classList.contains('close-btn')) {
         document.getElementById('profileOverlay').innerHTML = ``
         document.getElementById('profileOverlay').classList.toggle('hidden');
       }
     })
 
 
-    follow_unfollow = () =>{
+    follow_unfollow = () => {
       const user_id = document.getElementById('profileOverlay').querySelector('.profile-card').id
 
-      fetch(`http://127.0.0.1:8000/api/accounts/con/${user_id}/follow/`,{
-        method:"POST",
+      fetch(`http://127.0.0.1:8000/api/accounts/con/${user_id}/follow/`, {
+        method: "POST",
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("access")
         }
       }).then(res => res.json())
-      .then(data => console.log(data))
+        .then(data => console.log(data))
     }
     const profileUpdate = `<div class="overlay">
 
@@ -286,36 +285,39 @@ About
   </div>`
 
 
-    profileUpdatebtn.addEventListener('click',()=>{
-    document.getElementById('overlay').innerHTML += profileUpdate
-})
+    profileUpdatebtn.addEventListener('click', () => {
+      document.getElementById('overlay').innerHTML += profileUpdate
+    })
 
-// const updateProfile = () =>{
+    // const updateProfile = () =>{
 
-//     const formdata = new FormData()
-//     const fileinput = document.getElementById('fileinput')
-//     const bioinput = document.getElementById('bioinput')
+    //     const formdata = new FormData()
+    //     const fileinput = document.getElementById('fileinput')
+    //     const bioinput = document.getElementById('bioinput')
 
 
-//     formdata.append('bio',bioinput.value)
-//     formdata.append('profile_pic',fileinput.files[0])
+    //     formdata.append('bio',bioinput.value)
+    //     formdata.append('profile_pic',fileinput.files[0])
 
-//     fetch('http://127.0.0.1:8000/api/accounts/profile/',{
-//       method: "POST",
-//       headers: {
-//               "Authorization": "Bearer " + localStorage.getItem("access")
-//             },
-//       body : formdata
-//     }).then(res =>res.json()).then(data => {
-//       console.log(data)
-//     })
-//   }
-   let removeOverlay = () => {
-    document.getElementById('overlay').innerText = ""
-   }
+    //     fetch('http://127.0.0.1:8000/api/accounts/profile/',{
+    //       method: "POST",
+    //       headers: {
+    //               "Authorization": "Bearer " + localStorage.getItem("access")
+    //             },
+    //       body : formdata
+    //     }).then(res =>res.json()).then(data => {
+    //       console.log(data)
+    //     })
+    //   }
+    let removeOverlay = () => {
+      document.getElementById('overlay').innerText = ""
+    }
   </script>
-    <script src="/static/script/createpost.js"></script>
 
+  <script src="/static/script/loadRefreshToken.js"></script>
+  <script src="/static/script/navsettings.js"></script>
+  <script src="/static/script/createpost.js"></script>
+  
 </body>
 
 </html>

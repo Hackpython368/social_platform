@@ -73,7 +73,7 @@ About
   <div class="bottom-nav-mobile">
     <a href="/home">🏠</a>
     <a href="/search">🔍</a>
-    <a href="#" id="openPostModal">➕</a>
+    <a href="#" id="openPostModalMobile">➕</a>
     <a href="/profile">👤</a>
   </div>
 
@@ -86,8 +86,11 @@ About
     </div>
   </div>
 
-  <script src="/static/script/loadfeed.js"></script>
   <script src="/static/script/loadRefreshToken.js"></script>
+  <script src="/static/script/likePost.js"></script>
+  <script src="/static/script/loadfeed.js"></script>
+  <script src="/static/script/commentPost.js"></script>
+  <script src="/static/script/removeOverlay.js"></script>
   <script>
     
     
@@ -95,162 +98,19 @@ About
     
     resultcontainer.addEventListener('click', (event) => {
       const post = event.target.closest('.post')
-      console.log(event.target)
       
       if (event.target.classList.contains('like-btn')) {
-        
-        const likepost = () => {
-          console.log("post Liked")
-          fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/like/`, {
-            method: "POST",
-            headers: {
-              "Authorization": "Bearer " + localStorage.getItem("access")
-            }
-          }).then(res => res.json()).then(data => {
-            if (data.code == "token_not_valid") {
-              console.log(localStorage.getItem('refresh'));
-              fetch("http://127.0.0.1:8000/api/token/refresh/", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
-              }).then(res => res.json()).then(data => {
-                localStorage.setItem('access', data.data.access)
-                
-              })
-              // loadRefreshToken();
-              likepost()
-              
-            } else {
-              loadfeed()
-            }
-          })
-        }
-        likepost()
+        likepost(post)
       }
       
       if(event.target.classList.contains('comment-btn')){
         const inputtext = post.querySelector('.comment-text')
-        console.log(inputtext)
+
+        commentPost(inputtext.value,post.id)
         
-        if (inputtext){
-          
-          console.log( {
-              'comment_text' : inputtext.value
-            });
-            fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/comment/`,{
-              method: "POST",
-              headers:  {
-                "Authorization": "Bearer " + localStorage.getItem("access"),
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                'comment_text' : inputtext.value
-              })
-            }).then(res => res.json()).then(data => {
-              if (data.code == "token_not_valid") {
-                console.log(localStorage.getItem('refresh'));
-                fetch("http://127.0.0.1:8000/api/token/refresh/", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
-                }).then(res => res.json()).then(data => {
-                  localStorage.setItem('access', data.data.access)
-                  likepost()
-                  
-                })
-                
-              } else {
-                loadfeed()
-              }
-            })
-            
-          }
           
         }
       })
-      
-
-      
-
-      
-      
-      
-      
-      
-      
-      
-      
-      const profileUpdate = `<div class="overlay">
-        
-        <div class="upload-modal">
-          
-          <h3>Update Profile Data</h3>
-          
-          <!-- Upload Area -->
-          
-          <label class="upload-area">
-            
-            <input id="fileinput" type="file" hidden>
-            
-            <div class="upload-content">
-              <div class="icon">⬆</div>
-              <p><span>Drag & Drop</span> or <b>Choose file</b> to upload</p>
-              <small>Supported formats: JPG or PNG</small>
-            </div>
-            
-          </label>
-          
-          
-          <!-- Bio Field -->
-          
-          <div class="bio-section">
-            
-            <label>Bio</label>
-            <textarea id="bioinput" placeholder="Write short bio..."></textarea>
-            
-          </div>
-          
-          
-          <!-- Buttons -->
-          
-          <div class="modal-buttons">
-        
-            <button class="cancel-btn" onclick=removeOverlay()>Cancel</button>
-            <button class="upload-btn" onclick=updateProfile()>Upload</button>
-            
-          </div>
-          
-        </div>
-      </div>`
-      profileUpdatebtn.addEventListener('click',()=>{
-        document.getElementById('overlay').innerHTML += profileUpdate
-      })
-      
-      // const updateProfile = () =>{
-        
-      //   const formdata = new FormData()
-      //   const fileinput = document.getElementById('fileinput')
-      //   const bioinput = document.getElementById('bioinput')
-        
-        
-      //   formdata.append('bio',bioinput.value)
-      //   formdata.append('profile_pic',fileinput.files[0])
-        
-      //   fetch('http://127.0.0.1:8000/api/accounts/profile/',{
-      //     method: "POST",
-      //     headers: {
-      //       "Authorization": "Bearer " + localStorage.getItem("access")
-      //     },
-      //     body : formdata
-      //   }).then(res =>res.json()).then(data => {
-      //     console.log(data)
-      //   })
-      // }
-
       
     </script>
     <script src="/static/script/createpost.js"></script>

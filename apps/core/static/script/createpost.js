@@ -61,7 +61,13 @@ const createPost = () => {
         formdata.append('post_img', file)
     }
 
-    formdata.append('content', text)
+    if(text){
+      formdata.append('content', text)
+
+    }else{
+      formdata.append('content',"")
+    }
+
 
     fetch(`http://127.0.0.1:8000/api/accounts/user/create/post/`, {
         method: "POST",
@@ -72,13 +78,15 @@ const createPost = () => {
     })
         .then(res => res.json())
         .then(data => {
+          if(data.code == "token_not_valid"){
+            loadRefreshToken()
+            createPost()
+          }else{
+
             console.log(data)
             removeOverlay()
+          }
         })
 }
 document.getElementById("openPostModal").addEventListener("click", createPostModal);
-
-
-let removeOverlay = () => {
-  overlay.innerHTML = ""
-}
+document.getElementById("openPostModalMobile").addEventListener("click", createPostModal);

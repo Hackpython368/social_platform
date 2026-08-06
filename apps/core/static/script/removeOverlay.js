@@ -1,0 +1,3 @@
+let removeOverlay = () => {
+  overlay.innerHTML = ""
+}

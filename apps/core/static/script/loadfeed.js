@@ -1,5 +1,4 @@
 
-
 const loadfeed = () => {
     fetch('http://127.0.0.1:8000/api/accounts/user/feed/', {
         method: "GET",
@@ -8,26 +7,16 @@ const loadfeed = () => {
         }
     }).then(res => res.json()).then(data => {
         if (data.code == "token_not_valid") {
-            console.log(localStorage.getItem('refresh'));
-            fetch("http://127.0.0.1:8000/api/token/refresh/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ refresh: localStorage.getItem('refresh') })
-            }).then(res => res.json()).then(data => {
-                console.log(data)
-                localStorage.setItem('access', data.data.access)
-                loadfeed();
-
-            })
+            loadRefreshToken();
+            loadfeed();
         } else {
-            localStorage.setItem('user_id', data['user_id'])
+            // console.log(data)
+            // localStorage.setItem('user_id', data['user_id'])
             document.getElementById("feed").innerHTML = ""
             for (let i = 0; data.data.length > i; i++) {
 
                 document.getElementById("feed").innerHTML += `
-            <div class="post" id="${data['data'][i]['id']}">
+              <div class="post" ondblclick="likepost(this)" id="${data['data'][i]['id']}">
               <div class="post-header">
                 ${data['data'][i]['profile_pic'] == null ? `<div class="avatar" ><i class="fa-solid fa-user" style="font-size: 20px;"></i></div>` : `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
                 <!-- <div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']})"></div> -->

@@ -180,3 +180,33 @@
   aspect-ratio: 1/1;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+
+.bottom-nav-mobile {
+    padding: 30px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--navbar-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    visibility: hidden;
+}
+
+
+@media (max-width: 800px) {
+    .sidebar {
+        visibility: hidden;
+
+    }
+
+    .bottom-nav-mobile {
+        visibility: visible;
+    }
+
+    .avatar{
+      width: 100%;
+    }
+}

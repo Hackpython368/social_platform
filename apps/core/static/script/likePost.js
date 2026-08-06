@@ -1,0 +1,17 @@
+const likepost = (post) => {
+    console.log("post Liked")
+    fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/like/`, {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access")
+        }
+    }).then(res => res.json()).then(data => {
+        if (data.code == "token_not_valid") {
+            loadRefreshToken();
+            likepost()
+
+        } else {
+            loadfeed()
+        }
+    })
+}

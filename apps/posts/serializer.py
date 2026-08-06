@@ -3,6 +3,7 @@ from .models import Post,Like,Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
+    content = serializers.CharField(required=False)
 
     class Meta:
 
