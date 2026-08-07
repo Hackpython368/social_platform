@@ -179,7 +179,7 @@ input:checked+.slider:before {
 
     width: 240px;
 
-    background: rgba(20, 32, 58, 0.95);
+    background: var(--bg-color);
 
     border-radius: 16px;
 
@@ -189,7 +189,7 @@ input:checked+.slider:before {
 
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
 
-    color: white;
+    color: var(--text-color);
 
     display: none;
 
@@ -223,7 +223,7 @@ input:checked+.slider:before {
     background: none;
     border: none;
 
-    color: #9fb3c8;
+    color: #686a6c;
 
     cursor: pointer;
 

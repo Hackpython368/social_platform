@@ -6,18 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZentroConnect</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/static/style/createpoststyle.css">
-    <link rel="stylesheet" href="/static/style/navbar.css">
-    <link rel="stylesheet" href="/static/style/post.css">
-    <link rel="stylesheet" href="/static/style/theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="stylesheet" href="/static/style/createpoststyle.css">
+  <link rel="stylesheet" href="/static/style/navbar.css">
+  <link rel="stylesheet" href="/static/style/post.css">
+  <link rel="stylesheet" href="/static/style/theme.css">
 </head>
 
 <body>
   <div id="overlay"></div>
-    
+
 
   <!-- NAVBAR -->
   <div class="navbar">
@@ -28,27 +26,27 @@
     </div>
     <div class="settings-dropdown" id="settingsMenu">
       <div class="settings-header">
-  <span>Settings</span>
-  <button class="close-btn" id="closeBtn">✕</button>
-  </div>
+        <span>Settings</span>
+        <button class="close-btn" id="closeBtn">✕</button>
+      </div>
       <div class="setting-item">
 
-<span>Theme</span>
+        <span>Theme</span>
 
-<label class="switch">
-<input type="checkbox" id="themeToggle">
-<span class="slider"></span>
-</label>
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider"></span>
+        </label>
 
-</div>
+      </div>
 
-<div class="menu-item" id="profileUpdatebtn">
-Edit Profile
-</div>
+      <div class="menu-item" id="profileUpdatebtn">
+        Edit Profile
+      </div>
 
-<div class="menu-item">
-About
-</div>
+      <div class="menu-item">
+        About
+      </div>
 
 
     </div>
@@ -81,8 +79,8 @@ About
   <div class="main">
     <div class="feed-container" id="feed">
 
-      
-      
+
+
     </div>
   </div>
 
@@ -93,28 +91,28 @@ About
   <script src="/static/script/removeOverlay.js"></script>
   <script>
     
-    
+
     const resultcontainer = document.getElementById('feed')
-    
+
     resultcontainer.addEventListener('click', (event) => {
       const post = event.target.closest('.post')
-      
+
       if (event.target.classList.contains('like-btn')) {
         likepost(post)
       }
-      
-      if(event.target.classList.contains('comment-btn')){
+
+      if (event.target.classList.contains('comment-btn')) {
         const inputtext = post.querySelector('.comment-text')
 
-        commentPost(inputtext.value,post.id)
-        
-          
-        }
-      })
-      
-    </script>
-    <script src="/static/script/createpost.js"></script>
-    <script src="/static/script/navsettings.js"></script>
-  </body>
+        commentPost(inputtext.value, post.id)
 
-  </html>
+
+      }
+    })
+
+  </script>
+  <script src="/static/script/createpost.js"></script>
+  <script src="/static/script/navsettings.js"></script>
+</body>
+
+</html>

@@ -32,44 +32,54 @@ document.addEventListener("click", (e) => {
 })
 
 
-console.log("This is first log")
 
-
-
-const updateProfile = () =>{
+const updateProfile = () => {
 
     const formdata = new FormData()
     const fileinput = document.getElementById('fileinput')
     const bioinput = document.getElementById('bioinput')
 
 
-    formdata.append('bio',bioinput.value)
-    formdata.append('profile_pic',fileinput.files[0])
+    formdata.append('bio', bioinput.value)
+    formdata.append('profile_pic', fileinput.files[0])
 
-    fetch('http://127.0.0.1:8000/api/accounts/profile/',{
-      method: "POST",
-      headers: {
-              "Authorization": "Bearer " + localStorage.getItem("access")
-            },
-      body : formdata
-    }).then(res =>res.json()).then(data => {
-      console.log(data)
+    fetch('http://127.0.0.1:8000/api/accounts/profile/', {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access")
+        },
+        body: formdata
+    }).then(res => res.json()).then(data => {
+        console.log(data)
     })
-  }
+}
 
 
 
 
 
 
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+// if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+//     document.body.classList.add("dark-theme");
+// } else {
+//     document.body.classList.add("light-theme");
+// }
+const theme = localStorage.getItem('theme');
+console.log(theme);
+if (theme == "dark") {
     document.body.classList.add("dark-theme");
 } else {
     document.body.classList.add("light-theme");
 }
 
 
-
 themeToggle.addEventListener('change', () => {
+    const theme = localStorage.getItem('theme');
+
+    if (theme != 'light') {
+        localStorage.setItem('theme', 'light')
+    } else {
+        localStorage.setItem('theme', 'dark')
+    }
     document.body.classList.toggle('dark-theme')
 })

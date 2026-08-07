@@ -58,8 +58,9 @@
     }).then(res => res.json()).then(data =>{
       if(data['success']){
         const token = localStorage.setItem("access",data.data.access);
-        const refresh_token = localStorage.setItem("refresh",data.data.refresh)
-        console.log(refresh_token)
+        const refresh_token = localStorage.setItem("refresh",data.data.refresh);
+        localStorage.setItem("user_id",data.data.user.id);
+        localStorage.setItem("theme","light");
         window.location.href = "http://127.0.0.1:8000/home/";   
       }else{
         alert("Your entered Email and Password is wrong !")

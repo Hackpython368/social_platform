@@ -10,8 +10,9 @@ const loadfeed = () => {
             loadRefreshToken();
             loadfeed();
         } else {
+           
             // console.log(data)
-            // localStorage.setItem('user_id', data['user_id'])
+            localStorage.setItem('user_id', data['user_id'])
             document.getElementById("feed").innerHTML = ""
             for (let i = 0; data.data.length > i; i++) {
 
