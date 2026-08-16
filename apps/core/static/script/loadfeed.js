@@ -11,7 +11,7 @@ const loadfeed = () => {
             loadfeed();
         } else {
            
-            // console.log(data)
+            console.log(data)
             localStorage.setItem('user_id', data['user_id'])
             document.getElementById("feed").innerHTML = ""
             for (let i = 0; data.data.length > i; i++) {
@@ -34,7 +34,7 @@ const loadfeed = () => {
               
               
               <div id="rect-container" class="actions">
-                <span class="like-btn">${data['data'][i]['liked'] == true ? `<i style="color:red" class="fa-solid fa-heart"></i>` : `<i class="fa-solid fa-heart"></i>`} ${data['data'][i]['like_count']}</span>
+                <span class="like-btn">${data['data'][i]['is_liked'] == true ? `<i style="color:red" class="fa-solid fa-heart"></i>` : `<i class="fa-solid fa-heart"></i>`} ${data['data'][i]['like_count']}</span>
                 <span id="comment">💬 ${data['data'][i]['comment_count']} Comment</span>
               </div>
               <div class="comment-txt"><input class="comment-text" type="text" placeholder="Comment...."><button class="comment-btn">Comment</button></div>
