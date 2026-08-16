@@ -4,8 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from .serializer import PostSerializer,CommentSerializer,FeedSerializer
 from rest_framework.response import Response
-from .models import Post,Like
+from .models import Post,Like,Comment
+from apps.accounts.models import User,Profile
 from apps.connections.models import Follow
+from django.db.models import Prefetch,OuterRef,Exists, Subquery
+import time
 
 # Create your views here.
 class PostView(APIView):
@@ -104,47 +107,104 @@ class CommentView(APIView):
             "error" : serializer.errors
         },status=400)
 
+# TEMP TEST
 
+class RequestTimingMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        start = time.perf_counter()
+
+        response = self.get_response(request)
+
+        elapsed = (time.perf_counter() - start) * 1000
+
+        print(
+            f"{request.method} {request.path} "
+            f"status={response.status_code} "
+            f"time={elapsed:.2f} ms"
+        )
+
+        return response
+    
 class FeedView(APIView):
+
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        start1 = time.perf_counter()
 
         user = request.user
 
-        print(user.id)
-
-        following_id = Follow.objects.all().filter(follower=user).values_list('following',flat=True)
-
-        print(following_id.values_list())
+        following_id = ""
 
         if not following_id:
-            posts = Post.objects.order_by('-created_at')
+            start2 = time.perf_counter()
+            posts = Post.objects.annotate(
+                is_liked = Exists(
+                    Like.objects.filter(
+                    post=OuterRef("pk"),
+                    user=user
+                )),
+                latest_comment = Subquery(
+                    Comment.objects.filter(
+                    post = OuterRef("pk")).order_by("-created_at").values("comment_text")[:1]
+                    )).select_related('user','user__profile')
+
+            posts = list(posts)
+
+            db_time = time.perf_counter() - start2
+
+            print(f"DB QUERY TIME: {db_time:.4f} seconds")
         else:
             posts = Post.objects.order_by('-created_at')
-            # posts = Post.objects.filter(user__in=following_id).order_by('-created_at')
 
 
+
+
+        
         try :
+            start3 = time.perf_counter()
             serializer = FeedSerializer(posts,many=True,context={'request': request})
         except:
             return Response({
                 "success" : False,
                 "message":"Error will serializing the data"
             },status=400)
-        
-        # try:
-        return Response({
+
+
+        try:
+            return Response({
 
                 "success" : True,
                 "message" : "Personalized post feed",
                 'user_id' : user.id,
                 "data": serializer.data
             },status=200)
-        # except:
-        #     return Response({
-        #         "success" : False,
-        #         "message":"some error occurs"
-        #     },status=400)
+        except:
+            return Response({
+                "success" : False,
+                "message":"some error occurs"
+            },status=400)
+        # return Response({'message': 'ok'})
     
+        finally:
+            serializer_time = time.perf_counter() - start3
+            total_time = time.perf_counter() - start1
+
+            print(
+                    f"TOTAL FEED VIEW TIME: {total_time * 1000:.2f} ms"
+                )
+            
+            print(f"SERIALIZER TIME: {serializer_time:.4f} seconds")
+
+
+
+class TestFeedView(APIView):
+
+    permission_classes = []
+
+    def get(self, request):
+        return Response({"message": "ok"})  
