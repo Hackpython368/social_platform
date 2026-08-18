@@ -1,3 +1,5 @@
+let url = 'https://social-platform-pcfv.onrender.com'
+
 function createPostModal() {
 
     const overlay = document.getElementById('overlay').innerHTML += `<div class="overlay">
@@ -69,7 +71,7 @@ const createPost = () => {
     }
 
 
-    fetch(`http://127.0.0.1:8000/api/accounts/user/create/post/`, {
+    fetch(`${url}/api/accounts/user/create/post/`, {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access")

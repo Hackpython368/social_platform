@@ -1,6 +1,7 @@
+let url = 'https://social-platform-pcfv.onrender.com'
 
 const loadfeed = () => {
-    fetch('http://127.0.0.1:8000/api/accounts/user/feed/', {
+    fetch(`${url}/api/accounts/user/feed/`, {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access")

@@ -21,7 +21,7 @@
 
     <div class="right">
 
-      <img src="/static/src/img/logon-removebg-preview.png" alt="Logo" class="logo">
+      <img src="{% static '/src/img/logon-removebg-preview.png' %}" alt="Logo" class="logo">
 
       <div class="title">Register</div>
 
@@ -52,9 +52,10 @@
 
   </div>
   <script>
+    let url = 'https://social-platform-pcfv.onrender.com'
 
     let createuser = (jsondata) => {
-      fetch("http://127.0.0.1:8000/api/accounts/register/", {
+      fetch(`${url}/api/accounts/register/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -3,6 +3,7 @@ const settingsMenu = document.getElementById("settingsMenu")
 const closeBtn = document.getElementById("closeBtn")
 const themeToggle = document.getElementById("themeToggle")
 const profileUpdatebtn = document.getElementById('profileUpdatebtn')
+let url = 'https://social-platform-pcfv.onrender.com'
 
 /* Toggle menu */
 
@@ -43,7 +44,7 @@ const updateProfile = () => {
     formdata.append('bio', bioinput.value)
     formdata.append('profile_pic', fileinput.files[0])
 
-    fetch('http://127.0.0.1:8000/api/accounts/profile/', {
+    fetch(`${url}/api/accounts/profile/`, {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access")

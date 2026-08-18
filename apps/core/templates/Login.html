@@ -45,8 +45,10 @@
 </div>
 
 <script>
+  let url = 'https://social-platform-pcfv.onrender.com'
+
   let getData = (jsondata) => {
-    fetch('http://127.0.0.1:8000/api/token/',{
+    fetch(`${url}/api/token/`,{
       method : "POST",
       headers : {
         "Content-Type": "application/json",
@@ -62,7 +64,7 @@
         const refresh_token = localStorage.setItem("refresh",data.data.refresh);
         localStorage.setItem("user_id",data.data.user.id);
         localStorage.setItem("theme","light");
-        window.location.href = "http://127.0.0.1:8000/home/";   
+        window.location.href = `${url}/home/`;   
       }else{
         alert("Your entered Email and Password is wrong !")
       }

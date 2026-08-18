@@ -1,6 +1,8 @@
+let url = 'https://social-platform-pcfv.onrender.com'
+
 const likepost = (post) => {
     console.log("post Liked")
-    fetch(`http://127.0.0.1:8000/api/accounts/user/${post.id}/post/like/`, {
+    fetch(`${url}/api/accounts/user/${post.id}/post/like/`, {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access")

@@ -1,7 +1,9 @@
+let url = 'https://social-platform-pcfv.onrender.com'
+
 function commentPost(comment_txt, p_id) {
     if(comment_txt){
 
-        fetch(`http://127.0.0.1:8000/api/accounts/user/${p_id}/post/comment/`, {
+        fetch(`${url}/api/accounts/user/${p_id}/post/comment/`, {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("access"),

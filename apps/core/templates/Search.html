@@ -102,8 +102,9 @@
   </div>
   </div>
   <script>
-
-    fetch('http://127.0.0.1:8000/api/accounts/user/', {
+    let url = 'https://social-platform-pcfv.onrender.com'
+    
+    fetch(`${url}/api/accounts/user/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -126,7 +127,7 @@
 
     document.getElementById('search-bar').addEventListener('keyup', (event) => {
       console.log("EVENT");
-      fetch(`http://127.0.0.1:8000/api/accounts/user/?q=${document.getElementById('search-bar').value}`)
+      fetch(`${url}/api/accounts/user/?q=${document.getElementById('search-bar').value}`)
         .then(res => res.json())
         .then(data => {
           console.log(data)
@@ -213,7 +214,7 @@
       console.log(event.target.closest('.card'));
       {
         console.log(event.target.closest('.card').id)
-        fetch(`http://127.0.0.1:8000/api/accounts/profile/${event.target.closest('.card').id}/`)
+        fetch(`${url}/api/accounts/profile/${event.target.closest('.card').id}/`)
           .then(res => res.json())
           .then(data => {
             profileview(data)
@@ -234,7 +235,7 @@
     follow_unfollow = () => {
       const user_id = document.getElementById('profileOverlay').querySelector('.profile-card').id
 
-      fetch(`http://127.0.0.1:8000/api/accounts/con/${user_id}/follow/`, {
+      fetch(`${url}/api/accounts/con/${user_id}/follow/`, {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("access")

@@ -123,10 +123,11 @@ About
     let followerCount = document.getElementById('follower-count');
     let followingCount = document.getElementById('following-count');
     let avatar = document.getElementById('avatar');
-    let user_id = localStorage.getItem('user_id')
+    let user_id = localStorage.getItem('user_id');
+    let url = 'https://social-platform-pcfv.onrender.com';
     
     
-    fetch(`http://127.0.0.1:8000/api/accounts/profile/${user_id}/`)
+    fetch(`${url}/api/accounts/profile/${user_id}/`)
     .then(res => res.json())
     .then(data => {
       console.log(data)
