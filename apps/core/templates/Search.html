@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style/theme.css">
-  <link rel="stylesheet" href="/static/style/createpoststyle.css">
-  <link rel="stylesheet" href="/static/style/navbar.css">
-  <link rel="stylesheet" href="/static/style/theme.css">
-  <link rel="stylesheet" href="/static/style/search.css">
+  <link rel="stylesheet" href="{% static '/static/style/theme.css' %}">
+  <link rel="stylesheet" href="{% static '/static/style/createpoststyle.css' %}">
+  <link rel="stylesheet" href="{% static '/static/style/navbar.css' %}">
+  <link rel="stylesheet" href="{% static '/static/style/theme.css' %}">
+  <link rel="stylesheet" href="{% static '/static/style/search.css' %}">
 
 
 </head>
@@ -289,34 +289,14 @@
       document.getElementById('overlay').innerHTML += profileUpdate
     })
 
-    // const updateProfile = () =>{
-
-    //     const formdata = new FormData()
-    //     const fileinput = document.getElementById('fileinput')
-    //     const bioinput = document.getElementById('bioinput')
-
-
-    //     formdata.append('bio',bioinput.value)
-    //     formdata.append('profile_pic',fileinput.files[0])
-
-    //     fetch('http://127.0.0.1:8000/api/accounts/profile/',{
-    //       method: "POST",
-    //       headers: {
-    //               "Authorization": "Bearer " + localStorage.getItem("access")
-    //             },
-    //       body : formdata
-    //     }).then(res =>res.json()).then(data => {
-    //       console.log(data)
-    //     })
-    //   }
     let removeOverlay = () => {
       document.getElementById('overlay').innerText = ""
     }
   </script>
 
-  <script src="/static/script/loadRefreshToken.js"></script>
-  <script src="/static/script/navsettings.js"></script>
-  <script src="/static/script/createpost.js"></script>
+  <script src="{% static '/static/script/loadRefreshToken.js' %}"></script>
+  <script src="{% static '/static/script/navsettings.js' %}"></script>
+  <script src="{% static '/static/script/createpost.js' %}"></script>
   
 </body>
 
