@@ -1,4 +1,4 @@
-let url = 'https://social-platform-pcfv.onrender.com'
+
 
 const loadfeed = () => {
     fetch(`${url}/api/accounts/user/feed/`, {

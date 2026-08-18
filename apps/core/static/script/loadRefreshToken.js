@@ -1,4 +1,4 @@
-let url = 'https://social-platform-pcfv.onrender.com'
+
 
 function loadRefreshToken(){
     console.log(localStorage.getItem('refresh'));

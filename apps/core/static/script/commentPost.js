@@ -1,4 +1,4 @@
-let url = 'https://social-platform-pcfv.onrender.com'
+
 
 function commentPost(comment_txt, p_id) {
     if(comment_txt){

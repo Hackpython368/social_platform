@@ -116,6 +116,7 @@ About
 
     </div>
   </div>
+  <script src="{% static '/script/changeurl.js' %}"></script>
   <script>
     
     let usernameContainer = document.getElementById('username');
@@ -124,7 +125,6 @@ About
     let followingCount = document.getElementById('following-count');
     let avatar = document.getElementById('avatar');
     let user_id = localStorage.getItem('user_id');
-    let url = 'https://social-platform-pcfv.onrender.com';
     
     
     fetch(`${url}/api/accounts/profile/${user_id}/`)
