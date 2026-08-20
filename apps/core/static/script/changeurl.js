@@ -1,1 +1,0 @@
-let url = `https://social-platform-pcfv.onrender.com`
