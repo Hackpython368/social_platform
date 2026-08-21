@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.card-container {
+    position: relative;
+    background-color: var(--card-color);
+    width: 40vw;
+    height: 60vh;
+    border-radius: 10px;
+}
+
+.card-structure {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-image: url("/../static/src/img/developer.jpg");
+    background-repeat: none;
+    background-size: cover;
+}
+
+
+.text{
+    color: var(--text-color);
+    max-width: 80%;
+}
+
+.links{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-btn{
+    position: absolute;
+    top: 20;
+    right: 15px;
+    font-size: 20px;
+}

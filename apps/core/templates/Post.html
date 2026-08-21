@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static '/style/navbar.css' %}">
   <link rel="stylesheet" href="{% static '/style/post.css' %}">
   <link rel="stylesheet" href="{% static '/style/theme.css' %}">
+    <link rel="stylesheet" href="{% static '/style/developercardstyle.css' %}">
 </head>
 
 <body>
@@ -90,31 +91,32 @@
   <script src="{% static '/script/likePost.js' %}"></script>
   <script src="{% static '/script/loadfeed.js' %}"></script>
   <script src="{% static '/script/commentPost.js' %}"></script>
-  <script src="{% static '/script/removeOverlay.js' %}"></script>
   <script>
     
-
+    
     const resultcontainer = document.getElementById('feed')
-
+    
     resultcontainer.addEventListener('click', (event) => {
       const post = event.target.closest('.post')
 
       if (event.target.classList.contains('like-btn')) {
         likepost(post)
       }
-
+      
       if (event.target.classList.contains('comment-btn')) {
         const inputtext = post.querySelector('.comment-text')
-
+        
         commentPost(inputtext.value, post.id)
-
-
+        
+        
       }
     })
-
+    
   </script>
   <script src="{% static '/script/createpost.js' %}"></script>
   <script src="{% static '/script/navsettings.js' %}"></script>
+    <script src="{% static '/script/profileUpdate.js' %}"></script>
+  <script src="{% static '/script/removeOverlay.js' %}"></script>
 </body>
 
 </html>

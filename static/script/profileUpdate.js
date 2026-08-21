@@ -40,6 +40,40 @@ const profileUpdate = `<div class="overlay">
           
         </div>
       </div>`
+
+let developerprofile = `<div class="overlay">
+    <div class="card-container">
+        <div class="close-btn" onclick="close()">X</div>
+        <div class="card-structure">
+            <div class="image" >
+                
+            </div>
+            <div class="text">Hello I am Vidya Prakash Pandey Developer of the web application.</div>
+            <div class="links">
+                <a href="https://www.linkedin.com/in/vppandey368/">LinkedIn</a>
+                <a href="https://github.com/hackpython368/">GitHub</a>
+            </div>
+        </div>
+    </div>
+    </div>`
+
+
+
 profileUpdatebtn.addEventListener('click', () => {
+  if (document.getElementById('overlay').innerHTML===""){
     document.getElementById('overlay').innerHTML += profileUpdate
+  }
+})
+
+aboutBtn.addEventListener('click', () => {
+  if (document.getElementById('overlay').innerHTML===""){
+    document.getElementById('overlay').innerHTML += developerprofile
+  }
+})
+
+document.getElementById('overlay').addEventListener('click',(e)=>{
+  if(e.target.classList.contains('close-btn')){
+    document.getElementById('overlay').innerHTML= ""
+  }
+  
 })

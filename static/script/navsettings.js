@@ -3,6 +3,7 @@ const settingsMenu = document.getElementById("settingsMenu")
 const closeBtn = document.getElementById("closeBtn")
 const themeToggle = document.getElementById("themeToggle")
 const profileUpdatebtn = document.getElementById('profileUpdatebtn')
+const aboutBtn = document.getElementById('aboutBtn') 
 
 /* Toggle menu */
 
