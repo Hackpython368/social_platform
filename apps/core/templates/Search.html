@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{% static '/style/navbar.css' %}">
   <link rel="stylesheet" href="{% static '/style/theme.css' %}">
   <link rel="stylesheet" href="{% static '/style/search.css' %}">
-    <link rel="stylesheet" href="{% static '/style/developercardstyle.css' %}">
+  <link rel="stylesheet" href="{% static '/style/developercardstyle.css' %}">
 
 
 </head>
@@ -50,7 +50,7 @@
         Edit Profile
       </div>
 
-      <div class="menu-item">
+      <div class="menu-item" id="aboutBtn">
         About
       </div>
 
@@ -104,14 +104,13 @@
   </div>
   <script src="{% static '/script/changeurl.js' %}"></script>
   <script>
-    
+
     fetch(`${url}/api/accounts/user/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     }).then(res => res.json()).then(data => {
-      console.log(data)
       for (let i = 0; data.data.length > i; i++) {
         document.getElementById('result-container').innerHTML += `<div class="card" id="${data['data'][i]['id']}">
           ${data['data'][i]['profile_pic'] == null ? `<div class="avatar"><i class="fa-solid fa-user" style="font-size: 44px;"></i></div>` : `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
@@ -127,14 +126,11 @@
 
 
     document.getElementById('search-bar').addEventListener('keyup', (event) => {
-      console.log("EVENT");
       fetch(`${url}/api/accounts/user/?q=${document.getElementById('search-bar').value}`)
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           document.getElementById('result-container').innerHTML = ""
           for (let i = 0; data.data.length > i; i++) {
-            console.log(data['data'][i]['profile_pic'])
             document.getElementById('result-container').innerHTML += `<div class="card" id="${data['data'][i]['id']}">
                       ${data['data'][i]['profile_pic'] == null ? `<div class="avatar"><i class="fa-solid fa-user" style="font-size: 44px;"></i></div>` : `<div class="avatar" style="background-image: url(${data['data'][i]['profile_pic']}); background-size: cover;"></div>`}
               
@@ -214,7 +210,6 @@
     document.getElementById('result-container').addEventListener('click', (event) => {
       console.log(event.target.closest('.card'));
       {
-        console.log(event.target.closest('.card').id)
         fetch(`${url}/api/accounts/profile/${event.target.closest('.card').id}/`)
           .then(res => res.json())
           .then(data => {
@@ -225,7 +220,6 @@
 
 
     document.getElementById('profileOverlay').addEventListener('click', (event) => {
-      console.log(event.target)
       if (event.target.classList.contains('close-btn')) {
         document.getElementById('profileOverlay').innerHTML = ``
         document.getElementById('profileOverlay').classList.toggle('hidden');
@@ -242,15 +236,20 @@
           "Authorization": "Bearer " + localStorage.getItem("access")
         }
       }).then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+          if (data.code == "token_not_valid") {
+            loadRefreshToken()
+            follow_unfollow()
+          }
+        })
     }
-   
+
   </script>
 
   <script src="{% static '/script/loadRefreshToken.js' %}"></script>
   <script src="{% static '/script/navsettings.js' %}"></script>
   <script src="{% static '/script/createpost.js' %}"></script>
-    <script src="{% static '/script/profileUpdate.js' %}"></script>
+  <script src="{% static '/script/profileUpdate.js' %}"></script>
   <script src="{% static '/script/removeOverlay.js' %}"></script>
 
 </body>

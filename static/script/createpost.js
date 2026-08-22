@@ -84,8 +84,6 @@ const createPost = () => {
             loadRefreshToken()
             createPost()
           }else{
-
-            console.log(data)
             removeOverlay()
           }
         })

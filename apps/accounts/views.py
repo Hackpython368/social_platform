@@ -94,8 +94,6 @@ class UserprofileView(APIView):
 
     def get(self,request, id):
         user = User.objects.get(id=id)
-        
-        print(user)
 
         try:
             serializer = UserProfileViewSerializer(user)

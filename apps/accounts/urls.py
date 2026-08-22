@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import RegisterView,CustomTokenObtainPairView,CustomTokenRefreshPairView,UserView,ProfileUpdate,UserprofileView
 
-print("Hello From the account")
 
 urlpatterns = [
     path('',CustomTokenObtainPairView.as_view(),name="token_view"),

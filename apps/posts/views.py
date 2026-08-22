@@ -107,26 +107,6 @@ class CommentView(APIView):
             "error" : serializer.errors
         },status=400)
 
-# TEMP TEST
-
-class RequestTimingMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        start = time.perf_counter()
-
-        response = self.get_response(request)
-
-        elapsed = (time.perf_counter() - start) * 1000
-
-        print(
-            f"{request.method} {request.path} "
-            f"status={response.status_code} "
-            f"time={elapsed:.2f} ms"
-        )
-
-        return response
     
 class FeedView(APIView):
 
@@ -134,14 +114,12 @@ class FeedView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        start1 = time.perf_counter()
 
         user = request.user
 
         following_id = ""
 
         if not following_id:
-            start2 = time.perf_counter()
             posts = Post.objects.annotate(
                 is_liked = Exists(
                     Like.objects.filter(
@@ -154,10 +132,6 @@ class FeedView(APIView):
                     )).select_related('user','user__profile')
 
             posts = list(posts)
-
-            db_time = time.perf_counter() - start2
-
-            print(f"DB QUERY TIME: {db_time:.4f} seconds")
         else:
             posts = Post.objects.order_by('-created_at')
 
@@ -188,23 +162,3 @@ class FeedView(APIView):
                 "success" : False,
                 "message":"some error occurs"
             },status=400)
-        # return Response({'message': 'ok'})
-    
-        finally:
-            serializer_time = time.perf_counter() - start3
-            total_time = time.perf_counter() - start1
-
-            print(
-                    f"TOTAL FEED VIEW TIME: {total_time * 1000:.2f} ms"
-                )
-            
-            print(f"SERIALIZER TIME: {serializer_time:.4f} seconds")
-
-
-
-class TestFeedView(APIView):
-
-    permission_classes = []
-
-    def get(self, request):
-        return Response({"message": "ok"})  

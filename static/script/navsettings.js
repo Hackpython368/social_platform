@@ -50,23 +50,11 @@ const updateProfile = () => {
             "Authorization": "Bearer " + localStorage.getItem("access")
         },
         body: formdata
-    }).then(res => res.json()).then(data => {
-        console.log(data)
-    })
+    }).then(res => res.json()).then(data)
 }
 
 
-
-
-
-
-// if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-//     document.body.classList.add("dark-theme");
-// } else {
-//     document.body.classList.add("light-theme");
-// }
 const theme = localStorage.getItem('theme');
-console.log(theme);
 if (theme == "dark") {
     document.body.classList.add("dark-theme");
 } else {

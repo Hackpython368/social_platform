@@ -1,7 +1,6 @@
 
 
 function loadRefreshToken(){
-    console.log(localStorage.getItem('refresh'));
     fetch(`${url}/api/token/refresh/`, {
         method: "POST",
         headers: {
